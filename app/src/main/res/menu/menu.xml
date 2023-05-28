@@ -18,7 +18,7 @@
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_baseline_person_24"
-        android:title="calender" />
+        android:title="profile" />
 
     <item
         android:id="@+id/calenderFragment"

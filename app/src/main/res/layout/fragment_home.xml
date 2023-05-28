@@ -15,6 +15,19 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loading"
+                android:layout_width="402dp"
+                android:layout_height="279dp"
+                app:layout_constraintHorizontal_bias="0.504"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/loading" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline2"
@@ -32,18 +45,19 @@
                 android:text="Daily inspiration"
                 android:textColor="#000000"
                 android:textSize="24sp"
-                android:textStyle="bold"
+               android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/stack_view"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/myRecView1"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Daily"
-                tools:ignore="SpeakableTextPresentCheck" />
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="16dp"
+
+                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/Daily" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline3"
@@ -53,48 +67,48 @@
                 app:layout_constraintGuide_begin="401dp" />
 
             <TextView
-                android:id="@+id/trending"
+                android:id="@+id/category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="trending"
+                android:text="Categories"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/stack_view" />
+                app:layout_constraintTop_toBottomOf="@id/myRecView1"
+                tools:layout_editor_absoluteY="304dp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/myRecView"
+                android:id="@+id/myRecView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trending" />
+                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/category" />
 
             <TextView
-                android:id="@+id/newDishes"
+                android:id="@+id/country"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="newDishes"
+                android:text="Countries"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/myRecView" />
+                app:layout_constraintTop_toBottomOf="@+id/myRecView2" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/myRecView1"
+                android:id="@+id/myRecView3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/country"
+                app:layout_constraintStart_toStartOf="@id/guideline2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/newDishes" />
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="587dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
