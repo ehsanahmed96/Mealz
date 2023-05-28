@@ -6,11 +6,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.mealz.LogInPage.View.LogInActivity;
 import com.example.mealz.R;
@@ -22,6 +26,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 public class ProfileFragment extends Fragment {
     private GoogleSignInClient googleSignInClient;
     ImageView imgLogOut;
+    ImageView imgFav;
+    TextView txtFav;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,22 @@ public class ProfileFragment extends Fragment {
                 .requestEmail().build();
         googleSignInClient = GoogleSignIn.getClient(getContext(), googleSignInOptions);
         imgLogOut = view.findViewById(R.id.imglogout);
+        imgFav = view.findViewById(R.id.imgfav);
+        txtFav = view.findViewById(R.id.txtfav);
+        NavController navController = NavHostFragment.findNavController(this);
+        imgFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_favouriteFragment);
+            }
+        });
+        txtFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_favouriteFragment);
+            }
+        });
+
 
         imgLogOut.setOnClickListener(new View.OnClickListener() {
             @Override

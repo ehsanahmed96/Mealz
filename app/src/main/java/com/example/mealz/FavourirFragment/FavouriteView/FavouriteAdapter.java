@@ -1,6 +1,7 @@
 package com.example.mealz.FavourirFragment.FavouriteView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mealz.HomeFragment.View.OnClickListener;
+import com.example.mealz.MealDetails.MealDetailsView.MealDetailsActivity;
 import com.example.mealz.R;
 import com.example.mealz.model.Category;
 import com.example.mealz.model.MealDetails;
@@ -88,6 +90,16 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
             @Override
             public void onClick(View view) {
                 listener.onClick(mealDetails.get(holder.getAdapterPosition()));
+            }
+        });
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, MealDetailsActivity.class);
+                intent.putExtra("mealName" , mealDetails.get(holder.getAdapterPosition()).getMealName());
+                intent.putExtra("mealID" , mealDetails.get(holder.getAdapterPosition()).getIdMeal());
+                Log.i(TAG, "onClick: "+mealDetails.get(holder.getAbsoluteAdapterPosition()).getMealName());
+                context.startActivity(intent);
             }
         });
         Log.i(TAG, "====== onBindViewHolder ======");

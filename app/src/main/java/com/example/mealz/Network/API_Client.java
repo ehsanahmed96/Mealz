@@ -1,12 +1,14 @@
 package com.example.mealz.Network;
 
 
+import android.database.Observable;
 import android.util.Log;
 
 import com.example.mealz.model.Category;
 import com.example.mealz.model.CategoryResponse;
 import com.example.mealz.model.Country;
 import com.example.mealz.model.CountryResponse;
+import com.example.mealz.model.DetailsMealResponse;
 import com.example.mealz.model.MealDetails;
 import com.example.mealz.model.MealResponse;
 import com.google.gson.Gson;
@@ -128,6 +130,25 @@ public class API_Client implements RemoteSource {
                 Log.i(TAG, "onFailure: from api client");
             }
         });
+    }
+
+    @Override
+    public void getSpecificMeal(DetailsMealNetworkDelegate detailsMealNetworkDelegate, String id) {
+        Call<MealResponse> meals = api_service.getDetailMeal(id);
+        meals.enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
+                if (response.isSuccessful()) {
+                    detailsMealNetworkDelegate.onSuccessFindingMeal(response.body().getMeals().get(0));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable t) {
+                detailsMealNetworkDelegate.onFailureIngResult(t.getLocalizedMessage());
+            }
+        });
+
     }
 
 

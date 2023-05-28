@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 
 import com.example.mealz.Network.API_Client;
+import com.example.mealz.Network.DetailsMealNetworkDelegate;
 import com.example.mealz.Network.NetworkDelegate;
 import com.example.mealz.Network.RemoteSource;
 import com.example.mealz.dp.LocalSource;
@@ -62,5 +63,11 @@ localSource.delete(mealDetails);
     @Override
     public LiveData<List<MealDetails>> getCachedMeals() {
         return localSource.getCachedMeals();
+    }
+
+    @Override
+    public void getSpecificMeal(DetailsMealNetworkDelegate detailsNetworkDelegate, String id) {
+        Log.i("Repository", "getMealFromRetrofit: " + id);
+        remoteSource.getSpecificMeal(detailsNetworkDelegate, id);
     }
 }

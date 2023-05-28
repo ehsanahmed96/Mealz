@@ -1,5 +1,6 @@
 package com.example.mealz.HomeFragment.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,8 +28,9 @@ import com.example.mealz.model.Category;
 import com.example.mealz.model.Country;
 import com.example.mealz.model.MealDetails;
 import com.example.mealz.model.Repository;
-import com.google.android.material.carousel.CarouselLayoutManager;
 import com.google.firebase.database.core.Repo;
+import com.mig35.carousellayoutmanager.CarouselLayoutManager;
+import com.mig35.carousellayoutmanager.CarouselZoomPostLayoutListener;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -66,6 +68,7 @@ public class HomeFragment extends Fragment implements HomeFragmentInterface, OnC
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
         loading = view.findViewById(R.id.loading);
         daily = view.findViewById(R.id.Daily);
@@ -79,9 +82,10 @@ public class HomeFragment extends Fragment implements HomeFragmentInterface, OnC
         ///////////first adapter
         recyclerView1 = view.findViewById(R.id.myRecView1);
         recyclerView1.setHasFixedSize(true);
-        LinearLayoutManager manager1 = new LinearLayoutManager(getContext());
-        manager1.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView1.setLayoutManager(manager1);
+        CarouselLayoutManager layoutManager = new CarouselLayoutManager(CarouselLayoutManager.VERTICAL);
+        layoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
+        layoutManager.setMaxVisibleItems(3);
+        recyclerView1.setLayoutManager(layoutManager);
         presenter = new HomeFragmentPresenter(Repository.getInstance(API_Client.getInstance()
                 , ConcreteLocalSource.getInstance(getContext())
                 , getContext())

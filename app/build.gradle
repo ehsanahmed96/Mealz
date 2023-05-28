@@ -58,5 +58,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0'
+    implementation 'com.mig35:carousellayoutmanager:1.4.6'
+
 
 }

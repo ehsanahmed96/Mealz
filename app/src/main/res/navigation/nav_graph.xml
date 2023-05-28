@@ -37,7 +37,11 @@
         android:id="@+id/favouriteFragment"
         android:name="com.example.mealz.FavourirFragment.FavouriteView.favouriteFragment"
         android:label="fragment_favourite"
-        tools:layout="@layout/fragment_favourite" />
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.mealz.ProfileFragment.ProfileView.ProfileFragment"
@@ -46,5 +50,8 @@
         <argument
             android:name="username"
             app:argType="string" />
+        <action
+            android:id="@+id/action_profileFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
     </fragment>
 </navigation>
