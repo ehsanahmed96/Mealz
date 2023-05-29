@@ -13,6 +13,8 @@ import com.example.mealz.dp.LocalSource;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Observable;
+
 public class Repository implements RepositoryInterface {
     RemoteSource remoteSource;
     LocalSource localSource;
@@ -49,15 +51,14 @@ public class Repository implements RepositoryInterface {
     }
 
 
-
     @Override
     public void insertMealToFav(MealDetails mealDetails) {
-localSource.insertMealToFav(mealDetails);
+        localSource.insertMealToFav(mealDetails);
     }
 
     @Override
     public void deleteMeal(MealDetails mealDetails) {
-localSource.delete(mealDetails);
+        localSource.delete(mealDetails);
     }
 
     @Override
@@ -69,5 +70,85 @@ localSource.delete(mealDetails);
     public void getSpecificMeal(DetailsMealNetworkDelegate detailsNetworkDelegate, String id) {
         Log.i("Repository", "getMealFromRetrofit: " + id);
         remoteSource.getSpecificMeal(detailsNetworkDelegate, id);
+    }
+
+    @Override
+    public void insertMealIntoWeek(WeekPlan meal) {
+        localSource.insertMealIntoWeek(meal);
+    }
+
+    @Override
+    public void deleteMealFromPlan(WeekPlan meal) {
+        localSource.deleteMealFromPlan(meal);
+    }
+
+    @Override
+    public Observable<List<WeekPlan>> getStoredFriMeals() {
+        return localSource.getFridayMeals();
+    }
+
+    @Override
+    public Observable<List<WeekPlan>> getStoredSatMeals() {
+        return localSource.getSatdayMeals();
+    }
+
+    @Override
+    public Observable<List<WeekPlan>> getStoredSunMeals() {
+        return localSource.getSundayMeals();
+    }
+
+    @Override
+    public Observable<List<WeekPlan>> getStoredMonMeals() {
+        return localSource.getMondayMeals();
+    }
+
+    @Override
+    public Observable<List<WeekPlan>> getStoredTuesMeals() {
+        return localSource.getTuesdayMeals();
+    }
+
+    @Override
+    public Observable<List<WeekPlan>> getStoredWedMeals() {
+        return localSource.getWeddayMeals();
+    }
+
+    @Override
+    public Observable<List<WeekPlan>> getStoredThursMeals() {
+        return localSource.getThursdayMeals();
+    }
+
+    @Override
+    public void updateSat(String x, String id) {
+        localSource.updateSaturday(x, id);
+    }
+
+    @Override
+    public void updateSun(String x, String id) {
+        localSource.updateSunday(x, id);
+    }
+
+    @Override
+    public void updateMon(String x, String id) {
+        localSource.updateMonday(x, id);
+    }
+
+    @Override
+    public void updateTues(String x, String id) {
+        localSource.updateTuesday(x, id);
+    }
+
+    @Override
+    public void updateWed(String x, String id) {
+        localSource.updateWednesday(x, id);
+    }
+
+    @Override
+    public void updateThurs(String x, String id) {
+        localSource.updateThursday(x, id);
+    }
+
+    @Override
+    public void updateFri(String x, String id) {
+        localSource.updateFriday(x, id);
     }
 }

@@ -92,6 +92,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
                 Intent intent = new Intent(context, MealDetailsActivity.class);
                 intent.putExtra("mealName" , mealDetails.get(holder.getAdapterPosition()).getMealName());
                 intent.putExtra("mealID" , mealDetails.get(holder.getAdapterPosition()).getIdMeal());
+                intent.putExtra("mealthumb" ,mealDetails.get(holder.getAdapterPosition()).getStrMealThumb());
                 Log.i(TAG, "onClick: "+mealDetails.get(holder.getAbsoluteAdapterPosition()).getMealName());
                 context.startActivity(intent);
             }

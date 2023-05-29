@@ -23,5 +23,5 @@
     <item
         android:id="@+id/calenderFragment"
         android:icon="@drawable/ic_baseline_calendar_month_24"
-        android:title="calender" />
+        android:title="WeekPlan" />
 </menu>

@@ -2,19 +2,23 @@ package com.example.mealz.MealDetails.MealDetailsView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.mealz.CalenderDialog;
 import com.example.mealz.HomeFragment.View.OnClickListener;
 import com.example.mealz.MealDetails.MealDetailsPresenter.MealDetailsPresenter;
 import com.example.mealz.MealDetails.MealDetailsPresenter.MealDetailsPresenterInterface;
@@ -24,19 +28,22 @@ import com.example.mealz.dp.ConcreteLocalSource;
 import com.example.mealz.model.MealDetails;
 import com.example.mealz.model.Recipe;
 import com.example.mealz.model.Repository;
+import com.example.mealz.model.WeekPlan;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MealDetailsActivity extends AppCompatActivity implements MealDetailsInterface, OnClick {
+public class MealDetailsActivity extends AppCompatActivity implements MealDetailsInterface, OnClick, DatePickerDialog.OnDateSetListener {
     YouTubePlayerView youTubePlayerView;
     ImageView mealPic;
-    //WeekPlan weekPlan;
+    WeekPlan weekPlan;
     TextView MealName, MealCountry, steps;
     List<Recipe> myIngredients;
     MealDetailsInterface mealDetailsInterface;
@@ -66,6 +73,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         Intent intent = getIntent();
         String mealId = intent.getStringExtra("mealID");
         String mealName = intent.getStringExtra("mealName");
+        String mealThumb = intent.getStringExtra("mealthumb");
         presenter.getSpecificMeal(mealId);
         Log.i("TAG", "onCreate: " + mealId);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2,
@@ -77,13 +85,38 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         btnAddToFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             addMealToFavOnClick(mealResponse);
-             Toast.makeText(MealDetailsActivity.this, "add to favourites", Toast.LENGTH_SHORT).show();
+                addMealToFavOnClick(mealResponse);
+                Toast.makeText(MealDetailsActivity.this, "add to favourites", Toast.LENGTH_SHORT).show();
             }
         });
+        btnAddToWeekPlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CalenderDialog calenderDialog = new CalenderDialog();
+                calenderDialog.show(getSupportFragmentManager(), "Calender");
+                weekPlan = new WeekPlan(mealResponse.getIdMeal(), mealResponse.getMealName(), mealResponse.getStrCategory(), mealResponse.getStrArea()
+                        , mealResponse.getStrInstructions(), mealResponse.getStrMealThumb()
+                        , mealResponse.getStrIngredient1(), mealResponse.getStrIngredient2()
+                        , mealResponse.getStrIngredient3(), mealResponse.getStrIngredient4()
+                        , mealResponse.getStrIngredient5(), mealResponse.getStrIngredient6()
+                        , mealResponse.getStrIngredient7(), mealResponse.getStrIngredient8()
+                        , mealResponse.getStrIngredient9(), mealResponse.getStrIngredient10()
+                        , mealResponse.getStrIngredient11(), mealResponse.getStrIngredient12()
+                        , mealResponse.getStrIngredient13(), mealResponse.getStrIngredient14()
+                        , mealResponse.getStrIngredient15(), mealResponse.getStrIngredient16()
+                        , mealResponse.getStrIngredient17(), mealResponse.getStrIngredient18()
+                        , mealResponse.getStrIngredient19(), mealResponse.getStrIngredient20());
+
+            }
+        });
+
     }
 
 
+    @Override
+    public void addMealToFav(MealDetails meal) {
+        presenter.addToFav(meal);
+    }
 
     @Override
     public void showSpecificItem(MealDetails meal) {
@@ -98,8 +131,6 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         myIngredients.add(new Recipe(meal.getStrIngredient1(), meal.getStrMeasure1(), thumb));
         adapter = new IngredientsAdapter(this, myIngredients);
         recyclerView.setAdapter(adapter);
-
-
         Glide.with(this)
                 .load(meal.getStrMealThumb())
                 .placeholder(R.drawable.ic_launcher_background)
@@ -214,10 +245,72 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         }
 
     }
+
     @Override
     public void addMealToFavOnClick(MealDetails meal) {
-        presenter.addToFav(meal);
+      addMealToFav(meal);
 
     }
 
+    @Override
+    public void addMealsToWeekPlanOnClick(WeekPlan meals) {
+        presenter.addToWeekPlan(meals);
+        Toast.makeText(this, "meal Added to Plan", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker,  int year, int month, int dayOfMonth) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        String date = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        if (date.contains("Saturday")) {
+            weekPlan.sat = "1";
+            Toast.makeText(this, "" + weekPlan.sat, Toast.LENGTH_SHORT).show();
+        } else {
+            weekPlan.sat = "0";
+        }
+        if (date.contains("Sunday")) {
+            weekPlan.sun = "1";
+        }
+        // Toast.makeText(this, ""+weekPlan.sat, Toast.LENGTH_SHORT).show();
+        else {
+            weekPlan.sun = "0";
+        }
+        if (date.contains("Monday")) {
+            weekPlan.mon = "1";
+
+        } else {
+            weekPlan.mon = "0";
+        }
+        if (date.contains("Tuesday")) {
+            weekPlan.tues = "1";
+            // Toast.makeText(this, ""+weekPlan.sat, Toast.LENGTH_SHORT).show();
+        } else {
+            weekPlan.tues = "0";
+        }
+        if (date.contains("Thursday")) {
+            weekPlan.thurs = "1";
+            //  Toast.makeText(this, ""+weekPlan.sat, Toast.LENGTH_SHORT).show();
+        } else {
+            weekPlan.thurs = "0";
+        }
+        if (date.contains("Friday")) {
+            weekPlan.fri = "1";
+            //  Toast.makeText(this, ""+weekPlan.sat, Toast.LENGTH_SHORT).show();
+        } else {
+            weekPlan.fri = "0";
+        }
+        if (date.contains("Wednesday")) {
+            weekPlan.wed = "1";
+            //Toast.makeText(this, ""+weekPlan.sat, Toast.LENGTH_SHORT).show();
+
+        } else {
+            weekPlan.wed = "0";
+        }
+        addMealsToWeekPlanOnClick(weekPlan);
+
+
+    }
 }

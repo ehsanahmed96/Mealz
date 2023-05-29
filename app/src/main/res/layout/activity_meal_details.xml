@@ -68,7 +68,7 @@
             android:layout_width="317dp"
             android:layout_height="150dp"
             android:layout_marginTop="270dp"
-            android:background="@color/lightblack"
+            android:background="#90676262"
             android:elevation="15dp"
             app:layout_constraintCircleRadius="@dimen/cardview_default_radius"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
