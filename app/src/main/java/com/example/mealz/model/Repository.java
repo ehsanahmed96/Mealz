@@ -9,6 +9,7 @@ import com.example.mealz.Network.API_Client;
 import com.example.mealz.Network.DetailsMealNetworkDelegate;
 import com.example.mealz.Network.NetworkDelegate;
 import com.example.mealz.Network.RemoteSource;
+import com.example.mealz.Network.SearchNetworkDelegate;
 import com.example.mealz.dp.LocalSource;
 
 import java.util.List;
@@ -80,6 +81,21 @@ public class Repository implements RepositoryInterface {
     @Override
     public void deleteMealFromPlan(WeekPlan meal) {
         localSource.deleteMealFromPlan(meal);
+    }
+
+    @Override
+    public void getAllIngredients(SearchNetworkDelegate searchNetworkDelegate) {
+        remoteSource.allIngredients(searchNetworkDelegate);
+    }
+
+    @Override
+    public void getAllCategories(SearchNetworkDelegate searchNetworkDelegate) {
+        remoteSource.allCategories(searchNetworkDelegate);
+    }
+
+    @Override
+    public void getAllCountries(SearchNetworkDelegate searchNetworkDelegate) {
+        remoteSource.allCountries(searchNetworkDelegate);
     }
 
     @Override

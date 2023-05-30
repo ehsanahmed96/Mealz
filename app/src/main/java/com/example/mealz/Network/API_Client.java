@@ -9,6 +9,8 @@ import com.example.mealz.model.CategoryResponse;
 import com.example.mealz.model.Country;
 import com.example.mealz.model.CountryResponse;
 import com.example.mealz.model.DetailsMealResponse;
+import com.example.mealz.model.Ingredients;
+import com.example.mealz.model.IngredientsResponse;
 import com.example.mealz.model.MealDetails;
 import com.example.mealz.model.MealResponse;
 import com.google.gson.Gson;
@@ -16,6 +18,8 @@ import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -149,6 +153,81 @@ public class API_Client implements RemoteSource {
             }
         });
 
+    }
+
+    @Override
+    public void allIngredients(SearchNetworkDelegate searchNetworkDelegate) {
+        ArrayList<Ingredients> ingredientsList = new ArrayList<>();
+
+        Log.i(TAG, "randomMeals: for loop");
+        Call<IngredientsResponse> call = (Call<IngredientsResponse>) api_service.getAllIngredients();
+        call.enqueue(new Callback<IngredientsResponse>() {
+            @Override
+            public void onResponse(Call<IngredientsResponse> call, Response<IngredientsResponse> response) {
+                Log.i(TAG, "onResponse: response category");
+                if (response.isSuccessful() && response.body() != null) {
+
+                    searchNetworkDelegate.onSuccessAllIngredients(response.body().getMeals());
+                    Log.i(TAG, "onResponse: success category");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<IngredientsResponse> call, Throwable t) {
+                Log.i(TAG, "onFailure: from api client");
+            }
+        });
+    }
+
+    @Override
+    public void allCategories(SearchNetworkDelegate searchNetworkDelegate) {
+        ArrayList<Category> categoryList = new ArrayList<>();
+
+        Log.i(TAG, "randomMeals: for loop");
+        Call<CategoryResponse> call = (Call<CategoryResponse>) api_service.getCategories();
+        call.enqueue(new Callback<CategoryResponse>() {
+            @Override
+            public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
+                Log.i(TAG, "onResponse: response category");
+                if (response.isSuccessful() && response.body() != null) {
+
+                    searchNetworkDelegate.onSuccessAllCategories(response.body().getCategories());
+                    Log.i(TAG, "onResponse: success category");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoryResponse> call, Throwable t) {
+                Log.i(TAG, "onFailure: from api client");
+            }
+        });
+    }
+
+    @Override
+    public void allCountries(SearchNetworkDelegate searchNetworkDelegate) {
+        ArrayList<Country> countryList = new ArrayList<>();
+
+        Log.i(TAG, "randomMeals: for loop");
+        Call<CountryResponse> call = (Call<CountryResponse>) api_service.getCountry();
+        call.enqueue(new Callback<CountryResponse>() {
+            @Override
+            public void onResponse(Call<CountryResponse> call, Response<CountryResponse> response) {
+                Log.i(TAG, "onResponse: response category");
+                if (response.isSuccessful() && response.body() != null) {
+
+                    searchNetworkDelegate.onSuccessAllCountries(response.body().getCountries());
+                    Log.i(TAG, "onResponse: success category");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CountryResponse> call, Throwable t) {
+                Log.i(TAG, "onFailure: from api client");
+            }
+        });
     }
 
 

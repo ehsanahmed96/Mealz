@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.mealz.Network.DetailsMealNetworkDelegate;
 import com.example.mealz.Network.NetworkDelegate;
+import com.example.mealz.Network.SearchNetworkDelegate;
 
 import java.util.List;
 
@@ -26,6 +27,9 @@ public interface RepositoryInterface {
 
     public void insertMealIntoWeek(WeekPlan meal);
     public void deleteMealFromPlan(WeekPlan meal);
+    public void getAllIngredients(SearchNetworkDelegate searchNetworkDelegate);
+    public void getAllCategories(SearchNetworkDelegate searchNetworkDelegate);
+    public void getAllCountries(SearchNetworkDelegate searchNetworkDelegate);
 
     public Observable<List<WeekPlan>> getStoredFriMeals();
     public Observable<List<WeekPlan>> getStoredSatMeals();

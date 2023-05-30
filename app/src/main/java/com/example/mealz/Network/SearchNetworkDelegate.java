@@ -1,4 +1,4 @@
-package com.example.mealz.SearchFragment.SearchView;
+package com.example.mealz.Network;
 
 import com.example.mealz.model.Category;
 import com.example.mealz.model.CategoryResponse;
@@ -9,8 +9,9 @@ import com.example.mealz.model.IngredientsResponse;
 
 import java.util.List;
 
-public interface SearchFragmentInterface {
-    public void showAllIngredients(List<Ingredients> ingredients);
-    public void showAllCategories(List<Category> category);
-    public void showAllCountries(List<Country> country);
+public interface SearchNetworkDelegate {
+
+    public void onSuccessAllIngredients(List<Ingredients> ingredirntsList);
+    public void onSuccessAllCategories(List<Category> categoryList);
+    public void onSuccessAllCountries(List<Country> countryList);
 }

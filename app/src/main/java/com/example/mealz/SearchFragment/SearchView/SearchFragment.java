@@ -2,65 +2,136 @@ package com.example.mealz.SearchFragment.SearchView;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mealz.HomeFragment.Presenter.HomeFragmentPresenter;
+import com.example.mealz.HomeFragment.View.CategoryAdapter;
+import com.example.mealz.HomeFragment.View.CountryAdapter;
+import com.example.mealz.HomeFragment.View.HomeFragment;
+import com.example.mealz.HomeFragment.View.OnClickListener;
+import com.example.mealz.Network.API_Client;
 import com.example.mealz.R;
+import com.example.mealz.SearchFragment.SearchPresenter.SearchPresenter;
+import com.example.mealz.dp.ConcreteLocalSource;
+import com.example.mealz.model.Category;
+import com.example.mealz.model.CategoryResponse;
+import com.example.mealz.model.Country;
+import com.example.mealz.model.CountryResponse;
+import com.example.mealz.model.Ingredients;
+import com.example.mealz.model.IngredientsResponse;
+import com.example.mealz.model.MealDetails;
+import com.example.mealz.model.Repository;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SearchFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class SearchFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SearchFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SearchFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SearchFragment newInstance(String param1, String param2) {
-        SearchFragment fragment = new SearchFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class SearchFragment extends Fragment implements SearchFragmentInterface, OnClickListener {
+    RecyclerView recycleCategory, recyclerCountry , recyclerIngredient;
+    SearchPresenter presenter;
+    CategorySearchAdapter adapter;
+    CountryAdapter adapter2;
+    IngredientSearchAdapter adapter3;
+    List<Category> categoryList;
+    List<Country> CountryList;
+    List<Ingredients> ingredientsList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        categoryList = new ArrayList<>();
+        CountryList = new ArrayList<>();
+        ingredientsList = new ArrayList<>();
+/////////////////////////////////
+        recycleCategory = view.findViewById(R.id.recycleCategory);
+        recycleCategory.setHasFixedSize(true);
+        GridLayoutManager gridLayoutManager1 = new GridLayoutManager(this.getContext(), 2,
+                GridLayoutManager.HORIZONTAL, false);
+        recycleCategory.setLayoutManager(gridLayoutManager1);
+        presenter = new SearchPresenter(Repository.getInstance(API_Client.getInstance()
+                , ConcreteLocalSource.getInstance(getContext())
+                , getContext())
+                , this);
+        presenter.getAllCategories();
+        adapter = new CategorySearchAdapter(this.getContext(), categoryList);
+        recycleCategory.setAdapter(adapter);
+
+        //////////////////////////////
+        recyclerCountry = view.findViewById(R.id.recycleCountry);
+        recyclerCountry.setHasFixedSize(true);
+        GridLayoutManager gridLayoutManager2 = new GridLayoutManager(this.getContext(), 2,
+                GridLayoutManager.HORIZONTAL, false);
+        recyclerCountry.setLayoutManager(gridLayoutManager2);
+        presenter = new SearchPresenter(Repository.getInstance(API_Client.getInstance()
+                , ConcreteLocalSource.getInstance(getContext())
+                , getContext())
+                , this);
+        presenter.getAllCountries();
+        adapter2 = new CountryAdapter(this.getContext(), CountryList, this);
+        recyclerCountry.setAdapter(adapter2);
+        /////////////////////////////////////////////////
+        recyclerIngredient = view.findViewById(R.id.recycleIngredient);
+        recyclerIngredient.setHasFixedSize(true);
+        GridLayoutManager gridLayoutManager3 = new GridLayoutManager(this.getContext(), 2,
+                GridLayoutManager.HORIZONTAL, false);
+        recyclerIngredient.setLayoutManager(gridLayoutManager3);
+        presenter = new SearchPresenter(Repository.getInstance(API_Client.getInstance()
+                , ConcreteLocalSource.getInstance(getContext())
+                , getContext())
+                , this);
+        presenter.getAllIngredients();
+        adapter3 = new IngredientSearchAdapter(this.getContext(), ingredientsList);
+        recyclerIngredient.setAdapter(adapter3);
+    }
+
+    @Override
+    public void showAllIngredients(List<Ingredients> ingredients) {
+        if(!ingredients.isEmpty()){
+        ingredientsList = ingredients;
+        adapter3.setList(ingredientsList);
+        Log.i("TAG", "showAllIngredients: ingredent list sccesssssss");}
+        else
+            Log.i("TAG", "showAllIngredients: empty ingredients liiiiiiiiiiiiiist");
+    }
+
+    @Override
+    public void showAllCategories(List<Category> category) {
+
+        categoryList = category;
+        adapter.setList(categoryList);
+    }
+
+    @Override
+    public void showAllCountries(List<Country> country) {
+        CountryList = country;
+        adapter2.setList(CountryList);
+
+    }
+
+    @Override
+    public void onClick(MealDetails mealDetails) {
+
     }
 }

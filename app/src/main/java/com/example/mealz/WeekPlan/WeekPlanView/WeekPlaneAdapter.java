@@ -76,6 +76,7 @@ public class WeekPlaneAdapter extends RecyclerView.Adapter<WeekPlaneAdapter.View
             public void onClick(View v) {
                 Intent intent = new Intent(context, MealDetailsActivity.class);
                 intent.putExtra("mealName", holder.mealName.getText().toString());
+                intent.putExtra("mealID" , WeekList.get(holder.getAdapterPosition()).getIdMeal());
                 intent.putExtra("tableType", "weekPlan");
                 context.startActivity(intent);
             }
