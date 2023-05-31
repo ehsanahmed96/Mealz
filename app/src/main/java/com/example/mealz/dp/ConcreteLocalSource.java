@@ -108,7 +108,7 @@ public class ConcreteLocalSource implements LocalSource {
     }
 
 
-    @Override
+    /*@Override
     public void updateSaturday(String saturday, String id) {
         mealDAO.updateSaturday(saturday,id).subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
             @Override
@@ -260,5 +260,5 @@ public class ConcreteLocalSource implements LocalSource {
 
             }
         });
-    }
+    }*/
 }

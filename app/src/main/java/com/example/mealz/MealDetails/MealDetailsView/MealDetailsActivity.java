@@ -266,16 +266,17 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         String date = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+
         if (date.contains("Saturday")) {
             weekPlan.sat = "1";
-            Toast.makeText(this, "" + weekPlan.sat, Toast.LENGTH_SHORT).show();
+            //presenter.updateSat("Saturday" , "1");
+
         } else {
             weekPlan.sat = "0";
         }
         if (date.contains("Sunday")) {
             weekPlan.sun = "1";
         }
-        // Toast.makeText(this, ""+weekPlan.sat, Toast.LENGTH_SHORT).show();
         else {
             weekPlan.sun = "0";
         }
@@ -287,25 +288,24 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         }
         if (date.contains("Tuesday")) {
             weekPlan.tues = "1";
-            // Toast.makeText(this, ""+weekPlan.sat, Toast.LENGTH_SHORT).show();
+
         } else {
             weekPlan.tues = "0";
         }
         if (date.contains("Thursday")) {
             weekPlan.thurs = "1";
-            //  Toast.makeText(this, ""+weekPlan.sat, Toast.LENGTH_SHORT).show();
+
         } else {
             weekPlan.thurs = "0";
         }
         if (date.contains("Friday")) {
             weekPlan.fri = "1";
-            //  Toast.makeText(this, ""+weekPlan.sat, Toast.LENGTH_SHORT).show();
+
         } else {
             weekPlan.fri = "0";
         }
         if (date.contains("Wednesday")) {
             weekPlan.wed = "1";
-            //Toast.makeText(this, ""+weekPlan.sat, Toast.LENGTH_SHORT).show();
 
         } else {
             weekPlan.wed = "0";

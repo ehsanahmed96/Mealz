@@ -66,18 +66,18 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
         presenter.getSatdayMeal().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<WeekPlan>>() {
                     @Override
-                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<WeekPlan> weekPlans) {
+                    public void onNext(@NonNull List<WeekPlan> weekPlans) {
                         adapter.setListWeek(weekPlans);
                         adapter.notifyDataSetChanged();
                     }
 
                     @Override
-                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -100,18 +100,18 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
         presenter.getSundayMeal().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<WeekPlan>>() {
                     @Override
-                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<WeekPlan> weekPlans) {
+                    public void onNext(@NonNull List<WeekPlan> weekPlans) {
                         adapter1.setListWeek(weekPlans);
                         adapter1.notifyDataSetChanged();
                     }
 
                     @Override
-                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -132,18 +132,18 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
         presenter.getMondayMeal().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<WeekPlan>>() {
                     @Override
-                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<WeekPlan> weekPlans) {
+                    public void onNext(@NonNull List<WeekPlan> weekPlans) {
                         adapter2.setListWeek(weekPlans);
                         adapter2.notifyDataSetChanged();
                     }
 
                     @Override
-                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -164,18 +164,18 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
         presenter.getTuesdayMeal().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<WeekPlan>>() {
                     @Override
-                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<WeekPlan> weekPlans) {
+                    public void onNext(@NonNull List<WeekPlan> weekPlans) {
                         adapter3.setListWeek(weekPlans);
                         adapter3.notifyDataSetChanged();
                     }
 
                     @Override
-                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -201,13 +201,13 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
                     }
 
                     @Override
-                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<WeekPlan> weekPlans) {
+                    public void onNext(@NonNull List<WeekPlan> weekPlans) {
                         adapter4.setListWeek(weekPlans);
                         adapter4.notifyDataSetChanged();
                     }
 
                     @Override
-                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -229,18 +229,18 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
         presenter.getThursdayMeal().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<WeekPlan>>() {
                     @Override
-                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<WeekPlan> weekPlans) {
+                    public void onNext(@NonNull List<WeekPlan> weekPlans) {
                         adapter5.setListWeek(weekPlans);
                         adapter5.notifyDataSetChanged();
                     }
 
                     @Override
-                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -262,18 +262,18 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
         presenter.getFridayMeal().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<WeekPlan>>() {
                     @Override
-                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
                         Log.e("kk", "succ:weekplan " );
                     }
 
                     @Override
-                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<WeekPlan> weekPlans) {
+                    public void onNext(@NonNull List<WeekPlan> weekPlans) {
                         adapter6.setListWeek(weekPlans);
                         adapter6.notifyDataSetChanged();
                     }
 
                     @Override
-                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         Log.e("kk", "onError:weekplan " );
                     }
 

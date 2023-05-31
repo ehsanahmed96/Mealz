@@ -139,6 +139,18 @@ public class LogInActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), com.example.mealz.SignUpPage.View.SignUpActivity.class);
             startActivity(intent);
         });
+        guest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences pref = getSharedPreferences(File_Name, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("USERNAME", "Guest");
+                editor.commit();
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override

@@ -57,16 +57,6 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/weeklyPlanTitle" />
 
-            <View
-                android:id="@+id/view2"
-                android:layout_width="379dp"
-                android:layout_height="1dp"
-                android:layout_marginEnd="8dp"
-                android:background="@color/black"
-                app:layout_constraintEnd_toStartOf="@+id/guideline3"
-
-                app:layout_constraintStart_toStartOf="@+id/saturday"
-                app:layout_constraintTop_toBottomOf="@+id/saturday" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycle1"
@@ -76,7 +66,7 @@
                 app:layout_constraintEnd_toStartOf="@id/guideline3"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
 
-                app:layout_constraintTop_toBottomOf="@+id/view2" />
+                app:layout_constraintTop_toBottomOf="@+id/saturday" />
 
 
             <TextView

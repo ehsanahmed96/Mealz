@@ -21,11 +21,12 @@ public interface MealDAO {
     void insertMealToFav(MealDetails mealDetails);
     @Delete
     void deleteMeal(MealDetails meal);
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertMealIntoWeek(WeekPlan meal);
-
     @Query("SELECT * FROM MealData")
    LiveData<List<MealDetails>> getAllMeals();
+
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertMealIntoWeek(WeekPlan meal);
     @Delete
     void deleteMealFromPlan(WeekPlan meal);
 
@@ -46,7 +47,7 @@ public interface MealDAO {
 
 
 
-    @Query("Update WeekPlan set sat=(:saturday) where idMeal=(:id)")
+   /* @Query("Update WeekPlan set sat=(:saturday) where idMeal=(:id)")
     Completable updateSaturday(String saturday,String id);
 
     @Query("Update WeekPlan set sun=(:sunday) where idMeal=(:id)")
@@ -65,5 +66,5 @@ public interface MealDAO {
     Completable updateThursday(String thursday , String id);
 
     @Query("Update WeekPlan set fri=(:friday) where idMeal=(:id)")
-    Completable updateFriday(String friday ,String id);
+    Completable updateFriday(String friday ,String id);*/
 }

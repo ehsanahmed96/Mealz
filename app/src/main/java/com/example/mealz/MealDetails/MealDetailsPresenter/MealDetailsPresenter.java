@@ -32,7 +32,7 @@ public class MealDetailsPresenter implements MealDetailsPresenterInterface, Deta
         repository.insertMealIntoWeek(plan);
     }
 
-  /*  @Override
+   /* @Override
     public void updateSat(String x, String id) {
         repository.updateSat(x, id);
     }

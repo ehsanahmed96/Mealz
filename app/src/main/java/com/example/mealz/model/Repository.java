@@ -159,7 +159,7 @@ public class Repository implements RepositoryInterface {
         return localSource.getThursdayMeals();
     }
 
-    @Override
+   /* @Override
     public void updateSat(String x, String id) {
         localSource.updateSaturday(x, id);
     }
@@ -192,5 +192,5 @@ public class Repository implements RepositoryInterface {
     @Override
     public void updateFri(String x, String id) {
         localSource.updateFriday(x, id);
-    }
+    }*/
 }
