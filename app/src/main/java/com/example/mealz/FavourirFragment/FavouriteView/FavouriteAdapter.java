@@ -3,6 +3,7 @@ package com.example.mealz.FavourirFragment.FavouriteView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mealz.HomeFragment.View.OnClickListener;
+import com.example.mealz.LogInPage.View.LogInActivity;
 import com.example.mealz.MealDetails.MealDetailsView.MealDetailsActivity;
 import com.example.mealz.R;
 import com.example.mealz.model.Category;
 import com.example.mealz.model.MealDetails;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -31,7 +35,9 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
     Context context;
     List<MealDetails> mealDetails;
     private OnClickListener listener;
-
+    DatabaseReference databaseReference = FirebaseDatabase
+            .getInstance()
+            .getReferenceFromUrl("https://mealz-ad89b-default-rtdb.firebaseio.com/");
 
     public FavouriteAdapter(Context context, List<MealDetails> mealDetails, OnClickListener listener) {
         this.context = context;
@@ -79,6 +85,8 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        SharedPreferences pref = context.getSharedPreferences(LogInActivity.File_Name, Context.MODE_PRIVATE);
+        String key = pref.getString("USERNAME", "N/A");
 
         holder.mealName.setText(mealDetails.get(position).getMealName());
         holder.mealArea.setText(mealDetails.get(position).getStrArea());
@@ -97,6 +105,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 listener.onClick(mealDetails.get(holder.getAdapterPosition()));
+                                deleteFavFire( mealDetails.get(holder.getAdapterPosition()),key);
                                 dialog.dismiss();
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -124,6 +133,10 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
         Log.i(TAG, "====== onBindViewHolder ======");
 
 
+    }
+    void deleteFavFire(MealDetails meal,String c){
+        databaseReference.child(c).child("favourite").child(meal.getIdMeal()).removeValue();
+        Log.i(TAG, "deleteFavFire: deleted from favourite fire base");
     }
 
     @Override

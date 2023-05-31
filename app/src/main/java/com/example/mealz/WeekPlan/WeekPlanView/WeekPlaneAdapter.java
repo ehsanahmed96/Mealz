@@ -3,6 +3,8 @@ package com.example.mealz.WeekPlan.WeekPlanView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +17,14 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.mealz.LogInPage.View.LogInActivity;
 import com.example.mealz.MealDetails.MealDetailsView.MealDetailsActivity;
 import com.example.mealz.R;
+import com.example.mealz.model.MealDetails;
 import com.example.mealz.model.WeekPlan;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -26,6 +32,9 @@ public class WeekPlaneAdapter extends RecyclerView.Adapter<WeekPlaneAdapter.View
     private Context context;
     private OnWeekClick onWeekClick;
     private List<WeekPlan> WeekList;
+    DatabaseReference databaseReference = FirebaseDatabase
+            .getInstance()
+            .getReferenceFromUrl("https://mealz-ad89b-default-rtdb.firebaseio.com/");
 
     public WeekPlaneAdapter(Context context, List<WeekPlan> WeekList, OnWeekClick onWeekClick) {
         this.context = context;
@@ -44,6 +53,9 @@ public class WeekPlaneAdapter extends RecyclerView.Adapter<WeekPlaneAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull WeekPlaneAdapter.ViewHolder holder, int position) {
+        SharedPreferences pref = context.getSharedPreferences(LogInActivity.File_Name, Context.MODE_PRIVATE);
+        String key = pref.getString("USERNAME", "N/A");
+
         WeekPlan mealDetail = WeekList.get(position);
         holder.mealName.setText(WeekList.get(position).strMeal);
         Glide.with(context)
@@ -59,6 +71,7 @@ public class WeekPlaneAdapter extends RecyclerView.Adapter<WeekPlaneAdapter.View
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 onWeekClick.deleteMealPlanOnClick(mealDetail);
+                                deletePlanFire( mealDetail,key);
                                 dialog.dismiss();
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -107,5 +120,10 @@ public class WeekPlaneAdapter extends RecyclerView.Adapter<WeekPlaneAdapter.View
             mealIMG = v.findViewById(R.id.planmealImg);
             delImg = v.findViewById(R.id.removeWeekPlan);
         }
+    }
+    final int[] counter = {0};
+    void deletePlanFire(WeekPlan meal, String c){
+        databaseReference.child(c).child("WeekPlan").child(meal.getIdMeal() + counter[0]--).removeValue();
+        Log.i("TAG", "deletePlanFire: deleted from plan fire base");
     }
 }

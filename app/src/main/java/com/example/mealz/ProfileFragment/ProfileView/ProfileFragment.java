@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+
 import android.content.SharedPreferences;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -24,16 +25,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mealz.LogInPage.View.LogInActivity;
+import com.example.mealz.Network.API_Client;
+import com.example.mealz.ProfileFragment.ProfilePresenter.profilePresenter;
 import com.example.mealz.R;
+import com.example.mealz.dp.ConcreteLocalSource;
+import com.example.mealz.model.Repository;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
 
 
 public class ProfileFragment extends Fragment {
     private GoogleSignInClient googleSignInClient;
+    profilePresenter presenter;
+    Repository repository;
     ImageView imgLogOut;
     ImageView imgFav;
     ImageView imgCal;
@@ -42,7 +50,9 @@ public class ProfileFragment extends Fragment {
     TextView userName;
     ImageView imgprofile;
     boolean logged = true;
+    FirebaseAuth firebaseAuth;
     public static final String File_Name = "PrefFile";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,11 +81,13 @@ public class ProfileFragment extends Fragment {
         imgprofile = view.findViewById(R.id.imgProfile);
         userName = view.findViewById(R.id.txtName);
         NavController navController = NavHostFragment.findNavController(this);
+        firebaseAuth = FirebaseAuth.getInstance();
+        presenter = new profilePresenter(Repository.getInstance(API_Client.getInstance() ,
+                ConcreteLocalSource.getInstance(getContext()) , getContext()));
 
-        SharedPreferences pref =this .getContext().getSharedPreferences(LogInActivity.File_Name , Context.MODE_PRIVATE);
-        String nameProfile= pref.getString("USERNAME", "unKnown");
+        SharedPreferences pref = this.getContext().getSharedPreferences(LogInActivity.File_Name, Context.MODE_PRIVATE);
+        String nameProfile = pref.getString("USERNAME", "unKnown");
         userName.setText(nameProfile);
-
 
 
         imgFav.setOnClickListener(new View.OnClickListener() {
@@ -114,16 +126,7 @@ public class ProfileFragment extends Fragment {
         imgLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            googleSignInClient.signOut();
-                logged=false;
-
-                SharedPreferences pref = getActivity().getSharedPreferences(File_Name, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putBoolean("loggedIn" , logged);
-                editor.commit();
-                Intent intent = new Intent(getActivity(), LogInActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                signOut();
             }
         });
     }
@@ -141,6 +144,22 @@ public class ProfileFragment extends Fragment {
                 e.printStackTrace();
             }
         }
+    }
+
+    void signOut() {
+
+        googleSignInClient.signOut();
+        firebaseAuth.signOut();
+        logged = false;
+        presenter.deletMealsFromRoom();
+        presenter.deletPlansFromroom();
+        SharedPreferences pref = getActivity().getSharedPreferences(File_Name, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean("loggedIn", logged);
+        editor.commit();
+        Intent intent = new Intent(getActivity(), LogInActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
 

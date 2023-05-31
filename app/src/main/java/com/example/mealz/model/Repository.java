@@ -170,4 +170,24 @@ public class Repository implements RepositoryInterface {
         return localSource.getOfflineMealPlan(name);
     }
 
+    @Override
+    public void deletMealsFromRoom() {
+        localSource.deleteMeals();
+    }
+
+    @Override
+    public void deletePlansFromRoom() {
+        localSource.deletePlan();
+    }
+
+    @Override
+    public void insertMealFromFireBaseToRoom(MealDetails mealDetails) {
+        localSource.insertMealToFav(mealDetails);
+    }
+
+    @Override
+    public void insertPlanFromFireBaseToRoom(WeekPlan meal) {
+        localSource.insertMealIntoWeek(meal);
+    }
+
 }

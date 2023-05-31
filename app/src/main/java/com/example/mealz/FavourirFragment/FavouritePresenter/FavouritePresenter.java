@@ -25,4 +25,9 @@ public class FavouritePresenter implements FavouritePresenterInterface {
     public void removeMeal(MealDetails mealDetails) {
         repository.deleteMeal(mealDetails);
     }
+
+    @Override
+    public void insertMealsFromFireBaseToRoom(MealDetails mealDetails) {
+        repository.insertMealFromFireBaseToRoom(mealDetails);
+    }
 }

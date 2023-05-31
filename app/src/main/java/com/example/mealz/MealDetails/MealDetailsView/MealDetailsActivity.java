@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,14 +55,13 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
     WeekPlan weekPlan;
     TextView MealName, MealCountry, steps;
     List<Recipe> myIngredients;
-    MealDetailsInterface mealDetailsInterface;
     RecyclerView recyclerView;
     IngredientsAdapter adapter;
     MealDetailsPresenter presenter;
-    MealDetailsPresenterInterface presenter2;
-    ConcreteLocalSource cls;
+    String key;
     MealDetails mealResponse;
     Button btnAddToFav, btnAddToWeekPlan;
+    public static final String File_Name = "PrefFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +82,17 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         Intent intent = getIntent();
         String mealId = intent.getStringExtra("mealID");
         String mealName = intent.getStringExtra("mealName");
-        String mealThumb = intent.getStringExtra("mealthumb");
         String typeTable = intent.getStringExtra("tableType");
+
+        SharedPreferences prefs = getSharedPreferences(File_Name, Context.MODE_PRIVATE);
+
+        key = prefs.getString("USERNAME", "unknwon");
+
+
+        Log.i("TAG", "onCreate: user name is  " + key);
         Log.i("TAG", "onCreate: typetable" + typeTable);
+
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2,
                 GridLayoutManager.HORIZONTAL, false);
         recyclerView = findViewById(R.id.recyclerViewIngredients);
@@ -152,12 +160,14 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
             @Override
             public void onClick(View view) {
                 addMealToFavOnClick(mealResponse);
+                addMealInFirebase(mealResponse , key);
                 Toast.makeText(MealDetailsActivity.this, "add to favourites", Toast.LENGTH_SHORT).show();
             }
         });
         btnAddToWeekPlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 CalenderDialog calenderDialog = new CalenderDialog();
                 calenderDialog.show(getSupportFragmentManager(), "Calender");
                 weekPlan = new WeekPlan(mealResponse.getIdMeal(), mealResponse.getMealName(), mealResponse.getStrCategory(), mealResponse.getStrArea()
@@ -219,6 +229,16 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
             });
         }
 
+    }
+
+    @Override
+    public void addMealInFirebase(MealDetails mealDetail, String key) {
+        presenter.addMealToFavFirebase(mealDetail, key);
+    }
+
+    @Override
+    public void addMealInWeekPlanFirebase(WeekPlan mealDetail, String key) {
+        presenter.addMealToWeekPlanFirebase(mealDetail, key);
     }
 
     public static String extractVideoIdFromUrl(String url) {
@@ -405,6 +425,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
     public void addMealToFavOnClick(MealDetails meal) {
         addMealToFav(meal);
 
+
     }
 
     @Override
@@ -464,6 +485,8 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
             weekPlan.wed = "0";
         }
         addMealsToWeekPlanOnClick(weekPlan);
+        addMealInWeekPlanFirebase(weekPlan ,key);
+
 
 
     }

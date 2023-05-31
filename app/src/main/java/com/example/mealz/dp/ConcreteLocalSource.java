@@ -19,12 +19,14 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class ConcreteLocalSource implements LocalSource {
     private MealDAO mealDAO;
     private static ConcreteLocalSource concreteLocalSource = null;
-    private ConcreteLocalSource(Context context){
+
+    private ConcreteLocalSource(Context context) {
         mealDAO = AppDataBase.getInstance(context.getApplicationContext()).MealDAO();
     }
-    public static synchronized ConcreteLocalSource getInstance(Context context){
 
-        if (concreteLocalSource == null){
+    public static synchronized ConcreteLocalSource getInstance(Context context) {
+
+        if (concreteLocalSource == null) {
             concreteLocalSource = new ConcreteLocalSource(context);
         }
         return concreteLocalSource;
@@ -32,8 +34,8 @@ public class ConcreteLocalSource implements LocalSource {
 
     @Override
     public void insertMealToFav(MealDetails mealDetails) {
-        new Thread(){
-            public void run(){
+        new Thread() {
+            public void run() {
                 mealDAO.insertMealToFav(mealDetails);
             }
         }.start();
@@ -41,8 +43,8 @@ public class ConcreteLocalSource implements LocalSource {
 
     @Override
     public void delete(MealDetails mealDetails) {
-        new Thread(){
-            public void run(){
+        new Thread() {
+            public void run() {
                 mealDAO.deleteMeal(mealDetails);
             }
         }.start();
@@ -56,8 +58,8 @@ public class ConcreteLocalSource implements LocalSource {
 
     @Override
     public void insertMealIntoWeek(WeekPlan meal) {
-        new Thread(){
-            public void run(){
+        new Thread() {
+            public void run() {
                 mealDAO.insertMealIntoWeek(meal);
             }
         }.start();
@@ -65,8 +67,8 @@ public class ConcreteLocalSource implements LocalSource {
 
     @Override
     public void deleteMealFromPlan(WeekPlan meal) {
-        new Thread(){
-            public void run(){
+        new Thread() {
+            public void run() {
                 mealDAO.deleteMealFromPlan(meal);
             }
         }.start();
@@ -117,160 +119,23 @@ public class ConcreteLocalSource implements LocalSource {
         return mealDAO.getOfflineMealPlan(mealName);
     }
 
-
-
-
-    /*@Override
-    public void updateSaturday(String saturday, String id) {
-        mealDAO.updateSaturday(saturday,id).subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-
+    @Override
+    public void deleteMeals() {
+        new Thread() {
+            public void run() {
+                mealDAO.deleteMeals();
             }
-
-            @Override
-            public void onComplete() {
-                Log.e("HI", "success insert sat: concretelocalsource ");
-
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-                Log.e("HI", "failed insert thurs: concretelocalsource ");
-
-            }
-        });
+        }.start();
     }
 
     @Override
-    public void updateSunday(String sunday, String id) {
-        mealDAO.updateSunday(sunday,id).subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-
+    public void deletePlan() {
+        new Thread() {
+            public void run() {
+                mealDAO.deleteMyPlan();
             }
-
-            @Override
-            public void onComplete() {
-                Log.e("HI", "success insert sun: concrete localsource ");
-
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-                Log.e("HI", "failed insert thurs: concrete localsource ");
-
-            }
-        });
+        }.start();
     }
 
-    @Override
-    public void updateMonday(String monday, String id) {
-        mealDAO.updateMonday(monday,id).subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
 
-            }
-
-            @Override
-            public void onComplete() {
-                Log.e("HI", "success insert mon: concrete localsource ");
-
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-                Log.e("HI", "failed insert thurs: concrete localsource ");
-
-            }
-        });
-    }
-
-    @Override
-    public void updateTuesday(String tuesday, String id) {
-        mealDAO.updateTuesday(tuesday,id).subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-
-            }
-
-            @Override
-            public void onComplete() {
-                Log.e("HI", "success insert tues: concrete localsource ");
-
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-                Log.e("HI", "failed insert thurs: concrete localsource ");
-                e.printStackTrace();
-            }
-        });
-    }
-
-    @Override
-    public void updateWednesday(String wednesday, String id) {
-        mealDAO.updateWednesday(wednesday,id).subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-
-            }
-
-            @Override
-            public void onComplete() {
-                Log.e("HI", "success insert wed: concrete localsource ");
-
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-                Log.e("HI", "failed insert thurs: concrete localsource ");
-
-            }
-        });
-    }
-
-    @Override
-    public void updateThursday(String thursday, String id) {
-        mealDAO.updateThursday(thursday,id).subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-
-            }
-
-            @Override
-            public void onComplete() {
-                Log.e("HI", "success insert thurs: concrete localsource ");
-
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-                Log.e("HI", "failed insert thurs: concrete localsource ");
-
-            }
-        });
-    }
-
-    @Override
-    public void updateFriday(String friday, String id) {
-        mealDAO.updateFriday(friday,id).subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-
-            }
-
-            @Override
-            public void onComplete() {
-                Log.e("HI", "+success insert friday: concrete localsource ");
-
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-                Log.e("HI", "failed insert friday: concrete localsource ");
-
-            }
-        });
-    }*/
 }

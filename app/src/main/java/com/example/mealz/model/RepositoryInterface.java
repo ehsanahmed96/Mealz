@@ -49,6 +49,11 @@ public interface RepositoryInterface {
     public LiveData<MealDetails> getOfflineMealDetail(String name);
     public LiveData<WeekPlan> getOfflineMealPlan(String name);
 
+    public void  deletMealsFromRoom();
+    public void deletePlansFromRoom();
+    public void insertMealFromFireBaseToRoom(MealDetails mealDetails);
+    public void insertPlanFromFireBaseToRoom(WeekPlan meal);
+
 
 
 }

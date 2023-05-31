@@ -24,6 +24,11 @@ public class WeekPlanPresenter implements  WeekPlanPresenterInterface{
     }
 
     @Override
+    public void insertPlanFromFireBaseToRoom(WeekPlan mealDetails) {
+        repository.insertPlanFromFireBaseToRoom(mealDetails);
+    }
+
+    @Override
     public Observable<List<WeekPlan>> getFridayMeal() {return repository.getStoredFriMeals();}
 
     @Override

@@ -8,6 +8,6 @@ public interface MealDetailsInterface {
     void addMealToFav(MealDetails meal);
     void showSpecificItem(MealDetails meals);
 
-    //void showOfflineMealDetail(MealDetails meal);
-    //void showOfflineMealPlan(WeekPlan meal);
+    void addMealInFirebase(MealDetails mealDetail,String key);
+    void addMealInWeekPlanFirebase(WeekPlan mealDetail, String key);
 }

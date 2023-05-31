@@ -52,4 +52,10 @@ public interface MealDAO {
 
     @Query("Select * From WeekPlan Where strMeal=:mealName")
     LiveData<WeekPlan> getOfflineMealPlan(String mealName);
+
+
+    @Query("DELETE FROM WeekPlan")
+    void deleteMyPlan();
+    @Query("DELETE FROM MealData")
+    void deleteMeals();
 }

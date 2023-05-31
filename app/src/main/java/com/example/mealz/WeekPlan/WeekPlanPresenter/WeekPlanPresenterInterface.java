@@ -1,5 +1,6 @@
 package com.example.mealz.WeekPlan.WeekPlanPresenter;
 
+import com.example.mealz.model.MealDetails;
 import com.example.mealz.model.WeekPlan;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import io.reactivex.rxjava3.core.Observable;
 
 public interface WeekPlanPresenterInterface {
     public void deleteMeal(WeekPlan meal);
+    public void insertPlanFromFireBaseToRoom(WeekPlan mealDetails);
     public Observable<List<WeekPlan>> getFridayMeal();
     public Observable<List<WeekPlan>>  getSatdayMeal();
     public Observable<List<WeekPlan>>  getSundayMeal();

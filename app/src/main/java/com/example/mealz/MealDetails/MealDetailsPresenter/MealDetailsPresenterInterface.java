@@ -11,4 +11,7 @@ public interface MealDetailsPresenterInterface {
     public void addToWeekPlan(WeekPlan plan);
     public LiveData<MealDetails> getOffMealDetail(String meal);
     public LiveData<WeekPlan> getOffMealPlan(String meal);
+
+    void addMealToFavFirebase(MealDetails meal,String key);
+    void addMealToWeekPlanFirebase(WeekPlan meal,String key);
 }

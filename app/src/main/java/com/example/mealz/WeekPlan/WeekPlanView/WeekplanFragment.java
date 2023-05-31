@@ -1,5 +1,7 @@
 package com.example.mealz.WeekPlan.WeekPlanView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,13 +16,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mealz.HomeFragment.Presenter.HomeFragmentPresenter;
+import com.example.mealz.LogInPage.View.LogInActivity;
 import com.example.mealz.Network.API_Client;
 import com.example.mealz.R;
 import com.example.mealz.WeekPlan.WeekPlanPresenter.WeekPlanPresenter;
 import com.example.mealz.WeekPlan.WeekPlanPresenter.WeekPlanPresenterInterface;
 import com.example.mealz.dp.ConcreteLocalSource;
+import com.example.mealz.model.MealDetails;
 import com.example.mealz.model.Repository;
 import com.example.mealz.model.WeekPlan;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +44,9 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
     RecyclerView recyclerView1, recyclerView2, recyclerView3, recyclerView4, recyclerView5, recyclerView6, recyclerView7;
     WeekPlaneAdapter adapter, adapter1, adapter2, adapter3, adapter4, adapter5, adapter6;
     WeekPlanPresenter presenter;
+    DatabaseReference databaseReference = FirebaseDatabase
+            .getInstance()
+            .getReferenceFromUrl("https://mealz-ad89b-default-rtdb.firebaseio.com/");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +66,31 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
         super.onViewCreated(view, savedInstanceState);
         presenter = new WeekPlanPresenter(Repository.getInstance(API_Client.getInstance(), ConcreteLocalSource.getInstance(getContext())
                 , getContext()), this);
+        SharedPreferences pref = getContext().getSharedPreferences(LogInActivity.File_Name, Context.MODE_PRIVATE);
+        String key = pref.getString("USERNAME", "N/A");
+
+       databaseReference.child(key).child("WeekPlan").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChildren()) {
+                    for(DataSnapshot Data:snapshot.getChildren()){
+                        WeekPlan mealDetail=Data.getValue(WeekPlan.class);
+                        Log.e("TAG","firebase");
+                        presenter.insertPlanFromFireBaseToRoom(mealDetail);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+
 
         recyclerView1 = view.findViewById(R.id.recycle1);
         recyclerView1.setHasFixedSize(true);

@@ -27,4 +27,7 @@ public interface LocalSource {
     LiveData<MealDetails> getOfflineMealDetail(String mealName);
 
     abstract LiveData<WeekPlan> getOfflineMealPlan(String mealName);
+
+    void deleteMeals();
+    void deletePlan();
 }
