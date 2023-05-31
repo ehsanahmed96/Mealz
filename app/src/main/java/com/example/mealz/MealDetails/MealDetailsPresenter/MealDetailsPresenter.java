@@ -1,5 +1,9 @@
 package com.example.mealz.MealDetails.MealDetailsPresenter;
 
+import android.util.Log;
+
+import androidx.lifecycle.LiveData;
+
 import com.example.mealz.MealDetails.MealDetailsView.MealDetailsInterface;
 import com.example.mealz.Network.DetailsMealNetworkDelegate;
 import com.example.mealz.model.MealDetails;
@@ -32,40 +36,18 @@ public class MealDetailsPresenter implements MealDetailsPresenterInterface, Deta
         repository.insertMealIntoWeek(plan);
     }
 
-   /* @Override
-    public void updateSat(String x, String id) {
-        repository.updateSat(x, id);
+    @Override
+    public LiveData<MealDetails> getOffMealDetail(String meal) {
+        Log.i("TAG", "getOffMealDetail: presenter get offline meal");
+        return repository.getOfflineMealDetail(meal);
     }
 
     @Override
-    public void updateSun(String x, String id) {
-        repository.updateSun(x, id);
+    public LiveData<WeekPlan> getOffMealPlan(String meal) {
+        return repository.getOfflineMealPlan(meal);
     }
 
-    @Override
-    public void updateMon(String x, String id) {
-        repository.updateMon(x, id);
-    }
 
-    @Override
-    public void updateTues(String x, String id) {
-        repository.updateTues(x, id);
-    }
-
-    @Override
-    public void updateWed(String x, String id) {
-        repository.updateWed(x, id);
-    }
-
-    @Override
-    public void updateThurs(String x, String id) {
-        repository.updateThurs(x, id);
-    }
-
-    @Override
-    public void updateFri(String x, String id) {
-        repository.updateFri(x, id);
-    }*/
 
 
     @Override
@@ -77,4 +59,6 @@ public class MealDetailsPresenter implements MealDetailsPresenterInterface, Deta
     public void onFailureIngResult(String message) {
 
     }
+
+
 }

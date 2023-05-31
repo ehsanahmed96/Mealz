@@ -47,24 +47,9 @@ public interface MealDAO {
 
 
 
-   /* @Query("Update WeekPlan set sat=(:saturday) where idMeal=(:id)")
-    Completable updateSaturday(String saturday,String id);
+    @Query("Select * From MealData Where mealName=:mealName")
+    LiveData<MealDetails> getOfflineMealDetails(String mealName);
 
-    @Query("Update WeekPlan set sun=(:sunday) where idMeal=(:id)")
-    Completable updateSunday(String sunday ,String id);
-
-    @Query("Update weekplan set mon=(:monday) where idMeal=(:id)")
-    Completable updateMonday(String monday,String id);
-
-    @Query("Update WeekPlan set tues=(:tuesday) where idMeal=(:id)")
-    Completable updateTuesday(String tuesday,String id);
-
-    @Query("Update WeekPlan set wed=(:wednesday) where idMeal=(:id)")
-    Completable updateWednesday(String wednesday,String id);
-
-    @Query("Update WeekPlan set thurs=(:thursday)where idMeal=(:id)")
-    Completable updateThursday(String thursday , String id);
-
-    @Query("Update WeekPlan set fri=(:friday) where idMeal=(:id)")
-    Completable updateFriday(String friday ,String id);*/
+    @Query("Select * From WeekPlan Where strMeal=:mealName")
+    LiveData<WeekPlan> getOfflineMealPlan(String mealName);
 }

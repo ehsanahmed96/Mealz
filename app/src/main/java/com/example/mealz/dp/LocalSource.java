@@ -24,11 +24,7 @@ public interface LocalSource {
     Observable<List<WeekPlan>>getSatdayMeals();
     Observable<List<WeekPlan>>getFridayMeals();
 
-    /*void updateSaturday(String saturday,String id);
-    void updateSunday(String sunday,String id);
-    void updateMonday(String monday,String id);
-    void updateTuesday(String tuesday,String id);
-    void updateWednesday(String wednesday,String id);
-    void updateThursday(String thursday,String id);
-    void updateFriday(String friday,String id);*/
+    LiveData<MealDetails> getOfflineMealDetail(String mealName);
+
+    abstract LiveData<WeekPlan> getOfflineMealPlan(String mealName);
 }

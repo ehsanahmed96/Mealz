@@ -107,6 +107,18 @@ public class ConcreteLocalSource implements LocalSource {
         return mealDAO.getFridayMeals("1");
     }
 
+    @Override
+    public LiveData<MealDetails> getOfflineMealDetail(String mealName) {
+        return mealDAO.getOfflineMealDetails(mealName);
+    }
+
+    @Override
+    public LiveData<WeekPlan> getOfflineMealPlan(String mealName) {
+        return mealDAO.getOfflineMealPlan(mealName);
+    }
+
+
+
 
     /*@Override
     public void updateSaturday(String saturday, String id) {

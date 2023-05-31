@@ -1,6 +1,7 @@
 package com.example.mealz.FavourirFragment.FavouriteView;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +22,7 @@ import com.example.mealz.MealDetails.MealDetailsView.MealDetailsActivity;
 import com.example.mealz.R;
 import com.example.mealz.model.Category;
 import com.example.mealz.model.MealDetails;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
@@ -89,7 +92,21 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
         holder.delImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onClick(mealDetails.get(holder.getAdapterPosition()));
+                AlertDialog dialog = new MaterialAlertDialogBuilder(context).setTitle("Delete")
+                        .setMessage("Are you sure you want to delete this item from your Favourites?").setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                listener.onClick(mealDetails.get(holder.getAdapterPosition()));
+                                dialog.dismiss();
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create();
+                dialog.show();
+
             }
         });
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +115,8 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
                 Intent intent = new Intent(context, MealDetailsActivity.class);
                 intent.putExtra("mealName" , mealDetails.get(holder.getAdapterPosition()).getMealName());
                 intent.putExtra("mealID" , mealDetails.get(holder.getAdapterPosition()).getIdMeal());
+                intent.putExtra("tableType","favourite");
+                Log.i(TAG, "onClick: favourite taple type");
                 Log.i(TAG, "onClick: "+mealDetails.get(holder.getAbsoluteAdapterPosition()).getMealName());
                 context.startActivity(intent);
             }

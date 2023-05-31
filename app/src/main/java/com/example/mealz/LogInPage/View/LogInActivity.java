@@ -54,6 +54,7 @@ public class LogInActivity extends AppCompatActivity {
     TextView signup;
     Button login;
     Button guest;
+    String name;
     ImageView googleImg;
     DatabaseReference databaseReference = FirebaseDatabase
             .getInstance()
@@ -82,7 +83,7 @@ public class LogInActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = username.getText().toString();
+                name  = username.getText().toString();
                 String password = Password.getText().toString();
                 if (name.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LogInActivity.this, "Fill The Required Data", Toast.LENGTH_SHORT).show();
@@ -177,6 +178,10 @@ public class LogInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.i("TAG", "onComplete: success");
+                            SharedPreferences pref = getSharedPreferences(File_Name, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putString("USERNAME", name);
+                            editor.commit();
                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                             startActivity(intent);
                         } else {

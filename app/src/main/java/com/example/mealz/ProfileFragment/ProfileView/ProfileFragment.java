@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-
+import android.content.SharedPreferences;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +39,7 @@ public class ProfileFragment extends Fragment {
     ImageView imgCal;
     TextView txtFav;
     TextView txtCal;
+    TextView userName;
     ImageView imgprofile;
     boolean logged = true;
     public static final String File_Name = "PrefFile";
@@ -68,7 +69,15 @@ public class ProfileFragment extends Fragment {
         imgCal = view.findViewById(R.id.imgcalendar);
         txtCal = view.findViewById(R.id.txtWeekPlan);
         imgprofile = view.findViewById(R.id.imgProfile);
+        userName = view.findViewById(R.id.txtName);
         NavController navController = NavHostFragment.findNavController(this);
+
+        SharedPreferences pref =this .getContext().getSharedPreferences(LogInActivity.File_Name , Context.MODE_PRIVATE);
+        String nameProfile= pref.getString("USERNAME", "unKnown");
+        userName.setText(nameProfile);
+
+
+
         imgFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

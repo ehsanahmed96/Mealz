@@ -46,12 +46,9 @@ public interface RepositoryInterface {
     public Observable<List<WeekPlan>> getStoredWedMeals();
     public Observable<List<WeekPlan>> getStoredThursMeals();
 
-   /* public void updateSat(String x,String id);
-    public void updateSun(String x,String id);
-    public void updateMon(String x,String id);
-    public void updateTues(String x,String id);
-    public void updateWed(String x,String id);
-    public void updateThurs(String x,String id);
-    public void updateFri(String x,String id);*/
+    public LiveData<MealDetails> getOfflineMealDetail(String name);
+    public LiveData<WeekPlan> getOfflineMealPlan(String name);
+
+
 
 }

@@ -3,11 +3,15 @@ package com.example.mealz.MealDetails.MealDetailsView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.lifecycle.Observer;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,6 +44,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class MealDetailsActivity extends AppCompatActivity implements MealDetailsInterface, OnClick, DatePickerDialog.OnDateSetListener {
     YouTubePlayerView youTubePlayerView;
     ImageView mealPic;
@@ -50,6 +58,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
     RecyclerView recyclerView;
     IngredientsAdapter adapter;
     MealDetailsPresenter presenter;
+    MealDetailsPresenterInterface presenter2;
     ConcreteLocalSource cls;
     MealDetails mealResponse;
     Button btnAddToFav, btnAddToWeekPlan;
@@ -74,14 +83,70 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         String mealId = intent.getStringExtra("mealID");
         String mealName = intent.getStringExtra("mealName");
         String mealThumb = intent.getStringExtra("mealthumb");
-
-        presenter.getSpecificMeal(mealId);
-        Log.i("TAG", "onCreate: " + mealId);
+        String typeTable = intent.getStringExtra("tableType");
+        Log.i("TAG", "onCreate: typetable" + typeTable);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2,
                 GridLayoutManager.HORIZONTAL, false);
         recyclerView = findViewById(R.id.recyclerViewIngredients);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(gridLayoutManager);
+
+        if (isNetworkAvailable(getApplicationContext())) {
+            presenter.getSpecificMeal(mealId);
+            Log.i("TAG", "onCreate: " + mealId);
+
+        } else if (typeTable.equals("favourite")) {
+            Log.i("TAG", "onCreate: favourite table favourite meaal is presented");
+            presenter.getOffMealDetail(mealName).observe(this, new Observer<MealDetails>() {
+                @Override
+                public void onChanged(MealDetails mealDetail) {
+                    mealResponse = mealDetail;
+                    MealName.setText(mealDetail.getMealName());
+                    MealCountry.setText(mealDetail.getStrArea());
+                    createIngredientList(mealDetail);
+                    adapter = new IngredientsAdapter(getApplicationContext(), myIngredients);
+                    recyclerView.setAdapter(adapter);
+                    String thumb = "https://www.themealdb.com/images/ingredients/" + mealDetail.getStrIngredient1() + ".png";
+                    myIngredients.add(new Recipe(mealDetail.getStrIngredient1(), mealDetail.getStrMeasure1(), thumb));
+                    adapter = new IngredientsAdapter(getApplicationContext(), myIngredients);
+                    recyclerView.setAdapter(adapter);
+                    Glide.with(getApplicationContext())
+                            .load(mealDetail.getStrMealThumb())
+                            .placeholder(R.drawable.ic_launcher_background)
+                            .error(R.drawable.ic_launcher_foreground)
+                            .into(mealPic);
+                    steps.setText(mealDetail.getStrInstructions());
+
+
+                }
+            });
+
+        } else if (typeTable.equals("weekPlan")) {
+            presenter.getOffMealPlan(mealName).observe(this, new Observer<WeekPlan>() {
+                @Override
+                public void onChanged(WeekPlan plan) {
+                    MealName.setText(plan.getStrMeal());
+                    MealCountry.setText(plan.getStrArea());
+                    createIngredientListForWeek(plan);
+                    adapter = new IngredientsAdapter(getApplicationContext(), myIngredients);
+                    recyclerView.setAdapter(adapter);
+                    String thumb = "https://www.themealdb.com/images/ingredients/" + plan.getStrIngredient1() + ".png";
+                    myIngredients.add(new Recipe(plan.getStrIngredient1(), plan.getStrMeasure1(), thumb));
+                    adapter = new IngredientsAdapter(getApplicationContext(), myIngredients);
+                    recyclerView.setAdapter(adapter);
+                    Glide.with(getApplicationContext())
+                            .load(plan.getStrMealThumb())
+                            .placeholder(R.drawable.ic_launcher_background)
+                            .error(R.drawable.ic_launcher_foreground)
+                            .into(mealPic);
+                    steps.setText(plan.getStrInstructions());
+
+
+                }
+            });
+
+        }
+
 
         btnAddToFav.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +178,10 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
 
     }
 
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
 
     @Override
     public void addMealToFav(MealDetails meal) {
@@ -247,9 +316,94 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
 
     }
 
+    void createIngredientListForWeek(WeekPlan mealPojo) {
+
+        if (!mealPojo.getStrIngredient1().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient1() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient1(), mealPojo.getStrMeasure1(), thumb));
+        }
+        if (!mealPojo.getStrIngredient2().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient2() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient2(), mealPojo.getStrMeasure2(), thumb));
+        }
+        if (!mealPojo.getStrIngredient3().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient3() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient3(), mealPojo.getStrMeasure3(), thumb));
+        }
+        if (!mealPojo.getStrIngredient4().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient4() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient4(), mealPojo.getStrMeasure4(), thumb));
+        }
+        if (!mealPojo.getStrIngredient5().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient5() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient5(), mealPojo.getStrMeasure5(), thumb));
+        }
+        if (!mealPojo.getStrIngredient6().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient6() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient6(), mealPojo.getStrMeasure6(), thumb));
+        }
+        if (!mealPojo.getStrIngredient7().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient7() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient7(), mealPojo.getStrMeasure7(), thumb));
+        }
+        if (!mealPojo.getStrIngredient8().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient8() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient8(), mealPojo.getStrMeasure8(), thumb));
+        }
+        if (!mealPojo.getStrIngredient9().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient9() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient9(), mealPojo.getStrMeasure9(), thumb));
+        }
+        if (!mealPojo.getStrIngredient10().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient10() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient10(), mealPojo.getStrMeasure10(), thumb));
+        }
+        if (!mealPojo.getStrIngredient11().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient11() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient11(), mealPojo.getStrMeasure11(), thumb));
+        }
+        if (!mealPojo.getStrIngredient12().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient12() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient12(), mealPojo.getStrMeasure12(), thumb));
+        }
+        if (!mealPojo.getStrIngredient13().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient13() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient13(), mealPojo.getStrMeasure13(), thumb));
+        }
+        if (!mealPojo.getStrIngredient14().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient14() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient14(), mealPojo.getStrMeasure14(), thumb));
+        }
+        if (!mealPojo.getStrIngredient15().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient15() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient15(), mealPojo.getStrMeasure15(), thumb));
+        }
+        if (!mealPojo.getStrIngredient16().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient16() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient16(), mealPojo.getStrMeasure16(), thumb));
+        }
+        if (!mealPojo.getStrIngredient17().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient17() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient17(), mealPojo.getStrMeasure17(), thumb));
+        }
+        if (!mealPojo.getStrIngredient18().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient18() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient18(), mealPojo.getStrMeasure18(), thumb));
+        }
+        if (!mealPojo.getStrIngredient19().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient19() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient19(), mealPojo.getStrMeasure19(), thumb));
+        }
+        if (!mealPojo.getStrIngredient20().isEmpty()) {
+            String thumb = "https://www.themealdb.com/images/ingredients/" + mealPojo.getStrIngredient20() + ".png";
+            myIngredients.add(new Recipe(mealPojo.getStrIngredient20(), mealPojo.getStrMeasure20(), thumb));
+        }
+
+    }
+
     @Override
     public void addMealToFavOnClick(MealDetails meal) {
-      addMealToFav(meal);
+        addMealToFav(meal);
 
     }
 
@@ -260,7 +414,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
     }
 
     @Override
-    public void onDateSet(DatePicker datePicker,  int year, int month, int dayOfMonth) {
+    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
@@ -276,8 +430,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         }
         if (date.contains("Sunday")) {
             weekPlan.sun = "1";
-        }
-        else {
+        } else {
             weekPlan.sun = "0";
         }
         if (date.contains("Monday")) {
@@ -314,4 +467,5 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
 
 
     }
+
 }

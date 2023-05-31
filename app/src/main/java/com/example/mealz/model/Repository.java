@@ -159,38 +159,15 @@ public class Repository implements RepositoryInterface {
         return localSource.getThursdayMeals();
     }
 
-   /* @Override
-    public void updateSat(String x, String id) {
-        localSource.updateSaturday(x, id);
+    @Override
+    public LiveData<MealDetails> getOfflineMealDetail(String name) {
+        Log.i("TAG", "getOfflineMealDetail: repository get offline meal ");
+        return localSource.getOfflineMealDetail(name);
     }
 
     @Override
-    public void updateSun(String x, String id) {
-        localSource.updateSunday(x, id);
+    public LiveData<WeekPlan> getOfflineMealPlan(String name) {
+        return localSource.getOfflineMealPlan(name);
     }
 
-    @Override
-    public void updateMon(String x, String id) {
-        localSource.updateMonday(x, id);
-    }
-
-    @Override
-    public void updateTues(String x, String id) {
-        localSource.updateTuesday(x, id);
-    }
-
-    @Override
-    public void updateWed(String x, String id) {
-        localSource.updateWednesday(x, id);
-    }
-
-    @Override
-    public void updateThurs(String x, String id) {
-        localSource.updateThursday(x, id);
-    }
-
-    @Override
-    public void updateFri(String x, String id) {
-        localSource.updateFriday(x, id);
-    }*/
 }
