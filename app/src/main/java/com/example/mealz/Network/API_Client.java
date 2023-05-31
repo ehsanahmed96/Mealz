@@ -230,5 +230,130 @@ public class API_Client implements RemoteSource {
         });
     }
 
+    @Override
+    public void getMealsByCountry(FilterNetworkDelegate filterNetworkDelegate, String countryName) {
+        ArrayList<MealDetails> mealsList = new ArrayList<>();
+
+        Log.i(TAG, "randomMeals: for loop");
+        Call<MealResponse> call = (Call<MealResponse>) api_service.getMealsByCountry(countryName);
+        call.enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
+                Log.i(TAG, "onResponse: response category");
+                if (response.isSuccessful() && response.body() != null) {
+
+                    filterNetworkDelegate.onSuccessGetMealsByCountry(response.body().getMeals());
+                    Log.i(TAG, "onResponse: success category");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable t) {
+                Log.i(TAG, "onFailure: from api client");
+            }
+        });
+    }
+
+    @Override
+    public void getMealsByCategory(FilterNetworkDelegate filterNetworkDelegate, String categoryName) {
+        ArrayList<MealDetails> mealsList = new ArrayList<>();
+
+        Log.i(TAG, "randomMeals: for loop");
+        Call<MealResponse> call = (Call<MealResponse>) api_service.getMealsByCategory(categoryName);
+        call.enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
+                Log.i(TAG, "onResponse: response category");
+                if (response.isSuccessful() && response.body() != null) {
+
+                    filterNetworkDelegate.onSuccessGetMealsByCategory(response.body().getMeals());
+                    Log.i(TAG, "onResponse: success category");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable t) {
+                Log.i(TAG, "onFailure: from api client");
+            }
+        });
+    }
+
+    @Override
+    public void getMealsByCingredient(FilterNetworkDelegate filterNetworkDelegate, String ingredientyName) {
+        ArrayList<MealDetails> mealsList = new ArrayList<>();
+
+        Log.i(TAG, "randomMeals: for loop");
+        Call<MealResponse> call = (Call<MealResponse>) api_service.getMealsByIngredient(ingredientyName);
+        call.enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
+                Log.i(TAG, "onResponse: response category");
+                if (response.isSuccessful() && response.body() != null) {
+
+                    filterNetworkDelegate.onSuccessGetMealsByIngredients(response.body().getMeals());
+                    Log.i(TAG, "onResponse: success category");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable t) {
+                Log.i(TAG, "onFailure: from api client");
+            }
+        });
+    }
+
+    @Override
+    public void GetMealsStartsWith(FilterNetworkDelegate filterNetworkDelegate, String letter) {
+        ArrayList<MealDetails> mealsList = new ArrayList<>();
+
+        Log.i(TAG, "randomMeals: for loop");
+        Call<MealResponse> call = (Call<MealResponse>) api_service.getMealsStartsWith(letter);
+        call.enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
+                Log.i(TAG, "onResponse: response category");
+                if (response.isSuccessful() && response.body() != null) {
+
+                    filterNetworkDelegate.onSuccessGetMealsStartswith(response.body().getMeals());
+                    Log.i(TAG, "onResponse: success category");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable t) {
+                Log.i(TAG, "onFailure: from api client");
+            }
+        });
+    }
+
+    @Override
+    public void GetMealsWithName(FilterNetworkDelegate filterNetworkDelegate, String mealName) {
+        ArrayList<MealDetails> mealsList = new ArrayList<>();
+
+        Log.i(TAG, "randomMeals: for loop");
+        Call<MealResponse> call = (Call<MealResponse>) api_service.getMealsWithName(mealName);
+        call.enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
+                Log.i(TAG, "onResponse: response category");
+                if (response.isSuccessful() && response.body() != null) {
+
+                    filterNetworkDelegate.onSuccessGetMealWithName(response.body().getMeals());
+                    Log.i(TAG, "onResponse: success category");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable t) {
+                Log.i(TAG, "onFailure: from api client");
+            }
+        });
+    }
+
 
 }

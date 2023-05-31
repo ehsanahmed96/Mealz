@@ -2,15 +2,15 @@ package com.example.mealz.model;
 
 public class Flags {
     public static String getFlag (String name){
-        if(name.equals("American"))return "https://flagsapi.com/US/flat/64.png";
+        if(name.equals("American"))return "https://www.worldometers.info/img/flags/us-flag.gif";
         else if(name.equals("British"))return "https://flagsapi.com/GB/flat/64.png";
-        else if(name.equals("Canadian"))return "https://flagsapi.com/CA/flat/64.png";
-        else if(name.equals("Chinese"))return "https://flagsapi.com/CN/flat/64.png";
-        else if(name.equals("Croatian"))return "https://flagsapi.com/CR/flat/64.png";
+        else if(name.equals("Canadian"))return "https://www.worldometers.info/img/flags/ca-flag.gif";
+        else if(name.equals("Chinese"))return "https://www.worldometers.info/img/flags/ch-flag.gif";
+        else if(name.equals("Croatian"))return "https://www.worldometers.info/img/flags/hr-flag.gif";
         else if(name.equals("Dutch"))return "https://flagsapi.com/DO/flat/64.png";
-        else if(name.equals("Egyptian"))return "https://flagsapi.com/EG/flat/64.png";
+        else if(name.equals("Egyptian"))return "https://www.worldometers.info/img/flags/eg-flag.gif";
         else if(name.equals("Filipino"))return "https://flagsapi.com/FJ/flat/64.png";
-        else if(name.equals("French"))return "https://flagsapi.com/FR/flat/64.png";
+        else if(name.equals("French"))return "https://www.worldometers.info/img/flags/fr-flag.gif";
         else if(name.equals("Greek"))return "https://flagsapi.com/GR/flat/64.png";
         else if(name.equals("Indian"))return "https://flagsapi.com/IN/flat/64.png";
         else if(name.equals("Irish"))return "https://flagsapi.com/IR/flat/64.png";

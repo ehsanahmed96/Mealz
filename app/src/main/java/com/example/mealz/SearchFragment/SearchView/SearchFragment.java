@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 
 import com.example.mealz.HomeFragment.Presenter.HomeFragmentPresenter;
 import com.example.mealz.HomeFragment.View.CategoryAdapter;
@@ -37,7 +38,7 @@ import java.util.List;
 
 
 public class SearchFragment extends Fragment implements SearchFragmentInterface, OnClickListener {
-    RecyclerView recycleCategory, recyclerCountry , recyclerIngredient;
+    RecyclerView recycleCategory, recyclerCountry, recyclerIngredient;
     SearchPresenter presenter;
     CategorySearchAdapter adapter;
     CountryAdapter adapter2;
@@ -45,6 +46,7 @@ public class SearchFragment extends Fragment implements SearchFragmentInterface,
     List<Category> categoryList;
     List<Country> CountryList;
     List<Ingredients> ingredientsList;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,7 +66,11 @@ public class SearchFragment extends Fragment implements SearchFragmentInterface,
         categoryList = new ArrayList<>();
         CountryList = new ArrayList<>();
         ingredientsList = new ArrayList<>();
+
+
 /////////////////////////////////
+
+
         recycleCategory = view.findViewById(R.id.recycleCategory);
         recycleCategory.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager1 = new GridLayoutManager(this.getContext(), 2,
@@ -108,11 +114,11 @@ public class SearchFragment extends Fragment implements SearchFragmentInterface,
 
     @Override
     public void showAllIngredients(List<Ingredients> ingredients) {
-        if(!ingredients.isEmpty()){
-        ingredientsList = ingredients;
-        adapter3.setList(ingredientsList);
-        Log.i("TAG", "showAllIngredients: ingredent list sccesssssss");}
-        else
+        if (!ingredients.isEmpty()) {
+            ingredientsList = ingredients;
+            adapter3.setList(ingredientsList);
+            Log.i("TAG", "showAllIngredients: ingredent list sccesssssss");
+        } else
             Log.i("TAG", "showAllIngredients: empty ingredients liiiiiiiiiiiiiist");
     }
 

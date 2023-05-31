@@ -8,7 +8,10 @@ public interface RemoteSource {
     void allIngredients(SearchNetworkDelegate searchNetworkDelegate);
     void allCategories(SearchNetworkDelegate searchNetworkDelegate);
     void allCountries(SearchNetworkDelegate searchNetworkDelegate);
-    /*void filterByIngredient(FilterNetworkDelegate filterNetworkDelegate,String ingredient);
-    void filterByCategory(FilterNetworkDelegate filterNetworkDelegate,String category);
-    void filterByCountry(FilterNetworkDelegate filterNetworkDelegate,String country);*/
+    void getMealsByCountry(FilterNetworkDelegate filterNetworkDelegate , String countryName);
+    void getMealsByCategory(FilterNetworkDelegate filterNetworkDelegate , String categoryName);
+    void getMealsByCingredient(FilterNetworkDelegate filterNetworkDelegate , String ingredientyName);
+
+    void GetMealsStartsWith(FilterNetworkDelegate filterNetworkDelegate , String letter);
+    void GetMealsWithName(FilterNetworkDelegate filterNetworkDelegate , String mealName);
 }

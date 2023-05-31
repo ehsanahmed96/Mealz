@@ -1,6 +1,7 @@
 package com.example.mealz.SearchFragment.SearchView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mealz.HomeFragment.View.OnClickListener;
+import com.example.mealz.IngredientsSearch.IngredientsSearchView.IngredientSearchActivity;
 import com.example.mealz.R;
 import com.example.mealz.model.Flags;
 import com.example.mealz.model.Ingredients;
@@ -53,7 +55,16 @@ public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSear
                 .error(R.drawable.ic_launcher_foreground)
                 .into(holder.ingredentsIMG);
         Log.i(TAG, "onBindViewHolder:");
-    }
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, IngredientSearchActivity.class);
+                intent.putExtra("ingredienName" , ingredientsList.get(holder.getAdapterPosition()).getStrIngredient());
+
+                context.startActivity(intent);}
+            }
+        );
+}
 
     @Override
     public int getItemCount() {

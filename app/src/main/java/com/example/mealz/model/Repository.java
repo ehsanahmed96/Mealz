@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.mealz.Network.API_Client;
 import com.example.mealz.Network.DetailsMealNetworkDelegate;
+import com.example.mealz.Network.FilterNetworkDelegate;
 import com.example.mealz.Network.NetworkDelegate;
 import com.example.mealz.Network.RemoteSource;
 import com.example.mealz.Network.SearchNetworkDelegate;
@@ -96,6 +97,31 @@ public class Repository implements RepositoryInterface {
     @Override
     public void getAllCountries(SearchNetworkDelegate searchNetworkDelegate) {
         remoteSource.allCountries(searchNetworkDelegate);
+    }
+
+    @Override
+    public void getMealsByCountry(FilterNetworkDelegate filterNetworkDelegate, String countryName) {
+        remoteSource.getMealsByCountry(filterNetworkDelegate, countryName);
+    }
+
+    @Override
+    public void getMealsByCategory(FilterNetworkDelegate filterNetworkDelegate, String CategoryName) {
+        remoteSource.getMealsByCategory(filterNetworkDelegate, CategoryName);
+    }
+
+    @Override
+    public void getMealsByIngredients(FilterNetworkDelegate filterNetworkDelegate, String ingredientName) {
+        remoteSource.getMealsByCingredient(filterNetworkDelegate, ingredientName);
+    }
+
+    @Override
+    public void getMealsStartsWith(FilterNetworkDelegate filterNetworkDelegate, String letter) {
+        remoteSource.GetMealsStartsWith(filterNetworkDelegate, letter);
+    }
+
+    @Override
+    public void getMealsWithName(FilterNetworkDelegate filterNetworkDelegate, String mealName) {
+        remoteSource.GetMealsWithName(filterNetworkDelegate, mealName);
     }
 
     @Override

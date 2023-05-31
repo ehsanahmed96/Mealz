@@ -26,7 +26,7 @@
                 android:id="@+id/groupIng"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="txtIngredient,txtIngredientSeeAll" />
+                app:constraint_referenced_ids="txtIngredient" />
 
             <TextView
                 android:id="@+id/txtIngredient"
@@ -36,55 +36,31 @@
                 android:padding="5dp"
                 android:text="Ingredients"
                 android:textColor="#000000"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/txtIngredientSeeAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textColor="#E46740"
-                android:text="SeeAll"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recycleIngredient" />
 
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/groupType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="txtDishType,txtCategorySeeAll" />
+                app:constraint_referenced_ids="txtDishType" />
+
 
             <TextView
                 android:id="@+id/txtDishType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
                 android:padding="5dp"
                 android:text="Category"
                 android:textColor="#000000"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtIngredientSeeAll" />
-
-            <TextView
-                android:id="@+id/txtCategorySeeAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:padding="5dp"
-                android:textColor="#E46740"
-                android:text="SeeAll"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recycleCategory" />
-
+                app:layout_constraintTop_toBottomOf="@+id/recycleIngredient" />
 
             <TextView
                 android:id="@+id/txtCountry"
@@ -93,22 +69,10 @@
                 android:padding="5dp"
                 android:text="country"
                 android:textColor="#000000"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtCategorySeeAll" />
-
-            <TextView
-                android:id="@+id/txtCountrySeeAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textColor="#E46740"
-                android:text="SeeAll"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recycleCountry" />
+                app:layout_constraintTop_toBottomOf="@+id/recycleCategory" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycleIngredient"

@@ -1,6 +1,7 @@
 package com.example.mealz.HomeFragment.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.mealz.CategorySearch.CategorySearchView.CategorySearchActivity;
+import com.example.mealz.CountrySearch.CountrySearchView.CountrySearchActivity;
 import com.example.mealz.R;
 import com.example.mealz.model.Category;
 
@@ -72,6 +75,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(holder.categoryIMG);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, CategorySearchActivity.class);
+                intent.putExtra("categoryName" , categoryList.get(holder.getAbsoluteAdapterPosition()).getStrCategory());
+                Log.i(TAG, "onClick: "+categoryList.get(holder.getAbsoluteAdapterPosition()).getStrCategory());
+                context.startActivity(intent);
+            }
+        });
 
         Log.i(TAG, "====== onBindViewHolder category adapter ======");
     }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,7 +47,7 @@ public class HomeFragment extends Fragment implements HomeFragmentInterface, OnC
     CategoryAdapter adapter2;
     CountryAdapter adapter3;
     HomeFragmentPresenter presenter;
-    Repository repo;
+
     LottieAnimationView loading;
     TextView daily;
     TextView category;
@@ -97,8 +98,7 @@ public class HomeFragment extends Fragment implements HomeFragmentInterface, OnC
 /////////////// second adapter
         recyclerView2 = view.findViewById(R.id.myRecView2);
         recyclerView2.setHasFixedSize(true);
-        LinearLayoutManager manager2 = new LinearLayoutManager(getContext());
-        manager2.setOrientation(LinearLayoutManager.HORIZONTAL);
+        GridLayoutManager manager2 = new GridLayoutManager(getContext(), 2 , RecyclerView.HORIZONTAL ,false);
         recyclerView2.setLayoutManager(manager2);
         presenter = new HomeFragmentPresenter(Repository.getInstance(API_Client.getInstance()
                 , ConcreteLocalSource.getInstance(getContext())
@@ -111,8 +111,7 @@ public class HomeFragment extends Fragment implements HomeFragmentInterface, OnC
         ///////////////////////third adapter
         recyclerView3 = view.findViewById(R.id.myRecView3);
         recyclerView3.setHasFixedSize(true);
-        LinearLayoutManager manager3 = new LinearLayoutManager(getContext());
-        manager3.setOrientation(LinearLayoutManager.HORIZONTAL);
+        GridLayoutManager manager3 = new GridLayoutManager(getContext(), 2 , RecyclerView.HORIZONTAL ,false);
         recyclerView3.setLayoutManager(manager3);
         presenter = new HomeFragmentPresenter(Repository.getInstance(API_Client.getInstance()
                 , ConcreteLocalSource.getInstance(getContext())

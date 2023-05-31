@@ -74,6 +74,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         String mealId = intent.getStringExtra("mealID");
         String mealName = intent.getStringExtra("mealName");
         String mealThumb = intent.getStringExtra("mealthumb");
+
         presenter.getSpecificMeal(mealId);
         Log.i("TAG", "onCreate: " + mealId);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2,

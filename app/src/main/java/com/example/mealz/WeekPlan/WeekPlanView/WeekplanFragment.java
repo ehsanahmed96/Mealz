@@ -63,7 +63,7 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
         recyclerView1.setLayoutManager(layoutManager1);
         adapter = new WeekPlaneAdapter(getContext(), new ArrayList<WeekPlan>(),this);
         recyclerView1.setAdapter(adapter);
-        presenter.getSatdayMeal().subscribeOn(Schedulers.computation())
+        presenter.getSatdayMeal().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<WeekPlan>>() {
                     @Override
                     public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
@@ -85,6 +85,8 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
                     public void onComplete() {
 
                     }
+
+
                 });
         recyclerView1.setAdapter(adapter);
 
@@ -95,7 +97,7 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
         recyclerView2.setLayoutManager(layoutManager2);
         adapter1 = new WeekPlaneAdapter(getContext(), new ArrayList<WeekPlan>(),this);
         recyclerView2.setAdapter(adapter1);
-        presenter.getSundayMeal().subscribeOn(Schedulers.computation())
+        presenter.getSundayMeal().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<WeekPlan>>() {
                     @Override
                     public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
@@ -127,7 +129,7 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
         recyclerView3.setLayoutManager(layoutManager3);
         adapter2 = new WeekPlaneAdapter(getContext(), new ArrayList<WeekPlan>(),this);
         recyclerView3.setAdapter(adapter2);
-        presenter.getMondayMeal().subscribeOn(Schedulers.computation())
+        presenter.getMondayMeal().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<WeekPlan>>() {
                     @Override
                     public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
@@ -159,7 +161,7 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
         recyclerView4.setLayoutManager(layoutManager4);
         adapter3 = new WeekPlaneAdapter(getContext(), new ArrayList<WeekPlan>(),this);
         recyclerView4.setAdapter(adapter3);
-        presenter.getTuesdayMeal().subscribeOn(Schedulers.computation())
+        presenter.getTuesdayMeal().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<WeekPlan>>() {
                     @Override
                     public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
@@ -191,7 +193,7 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
         recyclerView5.setLayoutManager(layoutManager5);
         adapter4 = new WeekPlaneAdapter(getContext(), new ArrayList<WeekPlan>(),this);
         recyclerView5.setAdapter(adapter4);
-        presenter.getWeddayMeal().subscribeOn(Schedulers.computation())
+        presenter.getWeddayMeal().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<WeekPlan>>() {
                     @Override
                     public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
@@ -224,7 +226,7 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
         // input6 = new ArrayList<>();
         adapter5 = new WeekPlaneAdapter(getContext(), new ArrayList<WeekPlan>(),this);
         recyclerView6.setAdapter(adapter5);
-        presenter.getThursdayMeal().subscribeOn(Schedulers.computation())
+        presenter.getThursdayMeal().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<WeekPlan>>() {
                     @Override
                     public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
@@ -257,7 +259,7 @@ public class WeekplanFragment extends Fragment implements WeekPlanFragmentInterf
         //  input7 = new ArrayList<>();
         adapter6 = new WeekPlaneAdapter(getContext(), new ArrayList<WeekPlan>(),this);
         recyclerView7.setAdapter(adapter6);
-        presenter.getFridayMeal().subscribeOn(Schedulers.computation())
+        presenter.getFridayMeal().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<WeekPlan>>() {
                     @Override
                     public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {

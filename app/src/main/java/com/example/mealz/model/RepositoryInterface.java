@@ -3,6 +3,7 @@ package com.example.mealz.model;
 import androidx.lifecycle.LiveData;
 
 import com.example.mealz.Network.DetailsMealNetworkDelegate;
+import com.example.mealz.Network.FilterNetworkDelegate;
 import com.example.mealz.Network.NetworkDelegate;
 import com.example.mealz.Network.SearchNetworkDelegate;
 
@@ -30,6 +31,12 @@ public interface RepositoryInterface {
     public void getAllIngredients(SearchNetworkDelegate searchNetworkDelegate);
     public void getAllCategories(SearchNetworkDelegate searchNetworkDelegate);
     public void getAllCountries(SearchNetworkDelegate searchNetworkDelegate);
+    public void getMealsByCountry(FilterNetworkDelegate filterNetworkDelegate , String countryName);
+    public void getMealsByCategory(FilterNetworkDelegate filterNetworkDelegate , String CategoryName);
+    public void getMealsByIngredients(FilterNetworkDelegate filterNetworkDelegate , String ingredientName);
+
+    public void getMealsStartsWith(FilterNetworkDelegate filterNetworkDelegate , String letter);
+    public void getMealsWithName(FilterNetworkDelegate filterNetworkDelegate , String mealName);
 
     public Observable<List<WeekPlan>> getStoredFriMeals();
     public Observable<List<WeekPlan>> getStoredSatMeals();

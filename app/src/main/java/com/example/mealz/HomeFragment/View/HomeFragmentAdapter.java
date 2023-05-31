@@ -26,7 +26,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
     public final String TAG = "MealsAdapter";
     Context context;
     List<MealDetails> mealDetails;
-    List<Category> categoryList;
+
     private OnClickListener listener;
 
 
