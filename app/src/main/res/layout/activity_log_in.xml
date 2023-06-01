@@ -20,29 +20,13 @@
         app:layout_constraintTop_toTopOf="parent"
 
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/bg" />
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="100dp"
-        android:ems="10"
-        android:hint="enter your name"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:srcCompat="@drawable/bbbb" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="100dp"
+        android:layout_marginEnd="96dp"
         android:ems="10"
         android:hint="password"
         android:inputType="textPassword"
@@ -52,50 +36,77 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.004"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="128dp"
-        app:layout_constraintEnd_toStartOf="@+id/username"
-        app:layout_constraintHorizontal_bias="0.769"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_person_24" />
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="96dp"
+        android:ems="10"
+        android:hint="enter your name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="212dp"
         app:layout_constraintEnd_toStartOf="@+id/password"
-        app:layout_constraintHorizontal_bias="0.769"
+        app:layout_constraintHorizontal_bias="0.714"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/password_check" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/loginBtn"
+    <ImageView
+        android:id="@+id/google"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        app:cornerRadius="10dp"
-        android:layout_marginEnd="136dp"
-       android:backgroundTint="@color/color"
-        android:textColor="@color/white"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintRight_toLeftOf="@id/loginBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView4"
+        app:srcCompat="@drawable/google" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/loginBtn"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="132dp"
+        android:backgroundTint="@color/color"
         android:text="login"
+        android:textColor="@color/white"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="140dp"
+        app:layout_constraintEnd_toStartOf="@+id/username"
+        app:layout_constraintHorizontal_bias="0.714"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_person_24" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="212dp"
         android:layout_height="29dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="44dp"
         android:gravity="center"
         android:text="Don`t have Account ..."
         android:textColor="@color/black"
@@ -108,8 +119,8 @@
         android:id="@+id/signUpTxt"
         android:layout_width="75dp"
         android:layout_height="28dp"
-        android:layout_marginStart="220dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="44dp"
         android:gravity="center"
         android:singleLine="true"
         android:text="signUp"
@@ -119,28 +130,17 @@
         app:layout_constraintTop_toBottomOf="@id/loginBtn"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <ImageView
-        android:id="@+id/google"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintRight_toLeftOf="@id/loginBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView4"
-        app:srcCompat="@drawable/google" />
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/guestBtn"
-        android:layout_width="86dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="36dp"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="28dp"
         android:backgroundTint="@color/color"
         android:text="guest"
         android:textColor="@color/white"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.418"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/signUpTxt"
         tools:ignore="TouchTargetSizeCheck" />

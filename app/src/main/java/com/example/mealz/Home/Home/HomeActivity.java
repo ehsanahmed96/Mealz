@@ -1,6 +1,7 @@
 package com.example.mealz.Home.Home;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,6 +35,12 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         bottomNavigationView = findViewById(R.id.NavbBar);
         navController = Navigation.findNavController(this, R.id.nav_host);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);

@@ -2,57 +2,103 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".IngredientsSearch.IngredientsSearchView.IngredientSearchActivity">
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imgback5"
+        android:layout_width="33dp"
+        android:layout_height="32dp"
+        app:layout_constraintStart_toStartOf="@+id/guidelineleft5"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop5"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+
+    <TextView
+        android:id="@+id/ingredientName"
+        android:layout_width="319dp"
+        android:layout_height="45dp"
+        android:text="country"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imgback5"
+        app:layout_constraintStart_toEndOf="@+id/imgback5"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop5" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ingredientList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineright5"
+        app:layout_constraintStart_toStartOf="@+id/guidelineleft5"
+        app:layout_constraintTop_toBottomOf="@+id/searchViewingredient"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="44dp"
+        android:layout_marginBottom="687dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_begin="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="699dp"
+        android:layout_marginBottom="44dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_begin="699dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineleft5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="18dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineright5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintGuide_end="16dp"
+        app:layout_constraintStart_toEndOf="parent"
+        />
 
     <SearchView
         android:id="@+id/searchViewingredient"
         android:layout_width="374dp"
         android:layout_height="48dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="24dp"
-        android:visibility="visible"
+        android:layout_marginTop="15dp"
         android:background="@drawable/searchview"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright5"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft5"
+        app:layout_constraintHorizontal_bias="0.639"
 
-        app:layout_constraintEnd_toStartOf="@id/guidelineright"
 
-        app:layout_constraintStart_toEndOf="@id/guidelineleft"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineleft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineright"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="394dp" />
-
-    <TextView
-        android:id="@+id/ingredientName"
-        android:layout_width="375dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="36dp"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/guidelineleft"
-        app:layout_constraintTop_toBottomOf="@+id/searchViewingredient" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ingredientList"
-        android:layout_width="354dp"
-        android:layout_height="509dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/guidelineright"
-        app:layout_constraintStart_toEndOf="@id/guidelineleft"
         app:layout_constraintTop_toBottomOf="@id/ingredientName"
-        app:layout_constraintVertical_bias="0.666" />
+
+        tools:visibility="visible">
+
+    </SearchView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

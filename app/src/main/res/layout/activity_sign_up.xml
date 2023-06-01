@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/bg" />
+        app:srcCompat="@drawable/bbbb" />
 
     <EditText
         android:id="@+id/username"
@@ -107,8 +107,8 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signUpBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="192dp"
         android:backgroundTint="@color/color"
@@ -164,8 +164,8 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/skipBtn"
-        android:layout_width="86dp"
-        android:layout_height="41dp"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_marginTop="40dp"
         android:backgroundTint="@color/color"
         android:text="guest"
